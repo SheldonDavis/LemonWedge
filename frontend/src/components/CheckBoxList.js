@@ -30,7 +30,7 @@ function CheckBoxList(props){
                             id={`${listName}_${val}`} 
                             value={val}
                             name={listName}
-                            checked={checkedVals.includes(val)?true:false}
+                            checked={checkedVals?.includes(val)?true:false}
                         />
                         <label 
                             key={`${val}_lbl`}
