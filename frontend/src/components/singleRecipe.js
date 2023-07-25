@@ -1,0 +1,66 @@
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
+import jwt_decode from 'jwt-decode'
+import ROLES from '../components/roles' 
+
+const SingleRecipe = React.forwardRef(({ recipe }, ref) => { 
+    const {auth} = useAuth()
+    const decoded = auth?.accessToken
+    ? jwt_decode(auth.accessToken)
+    : undefined
+    const userID = decoded?.UserInfo?._id
+    const roles = decoded?.UserInfo?.roles || []
+    //if admin, set to true
+    const userIsAdmin = JSON.stringify(roles)?.includes(ROLES.Admin)
+    //if editor, set to true
+    const userIsEditor = JSON.stringify(roles)?.includes(ROLES.Editor)
+
+    //destructure the recipe
+    const {recipename, description, ingredients, image64, imagename, createdBy, ispro} = recipe
+
+    const recipeBODY = (
+        <>
+            <h5>{recipename}</h5>
+            <p>{description}</p>
+            {
+                //if recipe is pro recipe
+                ispro?(
+                    <p>PRO</p>
+                ):<></>
+            }
+            {
+                image64
+                ?(
+                    <p><img src={image64} style={{height:'250px',}} alt={`${recipename} - ${imagename}`}/></p>
+                ):(
+                    <></>
+                )
+            }
+            {ingredients?(
+                <ul>
+                {ingredients.map((ingredient, i)=>(
+                    <li key={i}>
+                    <p>{ingredient.name}, {ingredient.measurement} {ingredient.note?(<i>{ingredient.note}</i>):(<></>)}</p>
+                    </li>
+                ))}
+                </ul>
+            ):(<></>)}
+            <div className='BTNS'>
+                <Link to={`/recipes/${recipe._id}`} className='btn'>View Recipe</Link>
+                {
+                ((userIsEditor || userIsAdmin) && (userID===recipe.createdBy) )?(
+                <Link to={`/recipes/manage/${recipe._id}`} className='btn'>Update</Link>
+                ):<></>
+                }
+            </div>
+        </>
+    )
+    const content = ref
+    ?<article className='singleRecipe' ref={ref}>{recipeBODY}</article>
+    :<article className='singleRecipe' >{recipeBODY}</article>
+
+    return content
+
+})
+export default SingleRecipe
