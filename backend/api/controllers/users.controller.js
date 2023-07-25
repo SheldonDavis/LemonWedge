@@ -162,7 +162,7 @@ export default class UserController{
         
             if(!user || !pwd) return res.status(400).json({'message': 'Username and password are required.'})
     
-            const foundUser = await UserDAO.checkDupUsername(user)
+            const foundUser = await UserDAO.checkDupUsername_forLogin(user)
             
             if(!foundUser) {
                 //console.log('user not found')
@@ -171,7 +171,6 @@ export default class UserController{
     
             //evaluate PW
             const match = await bcrypt.compare(pwd, foundUser.pwd)
-    
             if(match){
 
                 const roles = Object.values(foundUser.roles).filter(Boolean)
