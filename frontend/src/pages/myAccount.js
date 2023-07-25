@@ -1,6 +1,4 @@
 import React, {useState, useEffect, useRef} from 'react'
-import useAuth from '../hooks/useAuth'
-import UserDataService from '../services/user.serv.js'
 
 //icons
 import {faInfoCircle, faCheckCircle, faSpinner, faXmark} from '@fortawesome/free-solid-svg-icons'
@@ -8,6 +6,12 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 //components
 import CheckBoxList from '../components/CheckBoxList'
+
+//services
+import UserDataService from '../services/user.serv.js'
+
+//hooks
+import useAuth from '../hooks/useAuth'
 
 const USERNAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}/
 const PASSW_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
@@ -89,10 +93,11 @@ const MyAccount = () => {
         if(type === 'checkbox'){
             let listIndex = Object.keys(user).indexOf(name)
             let currentValues = Object.values(user)[listIndex] || []
+            console.log(currentValues)
             let index = currentValues.indexOf(value)
             let newValues = []
 
-            if(currentValues.includes(value)){
+            if(currentValues?.includes(value)){
                 //remove value from array
                 newValues = currentValues
                 //item to be removed is set to variable, ignorable. don't need to save this for later.
