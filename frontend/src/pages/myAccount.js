@@ -87,6 +87,7 @@ const MyAccount = () => {
         //setup variables for object key and object value
         const {value,name,type} = e.target
 
+        //clear error message
         setErrMsg('')
 
         //handle for checkboxes to allow comma seperated list for values
