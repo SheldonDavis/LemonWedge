@@ -118,9 +118,9 @@ export default class UserDAO{
         }
     }
 
-    static async checkDupUsername(username){
+    static async checkDupUsername_forLogin(username){
         try{
-            return await users.findOne({username},{projection:{username:1,_id:0,}})
+            return await users.findOne({username},{projection:{username:1,pwd:1,roles:1,_id:1,}})
         }catch(e){
             console.error(`Something went wrong in CheckDupUsername: ${e}`)
             throw e
@@ -132,6 +132,15 @@ export default class UserDAO{
             return await users.findOne({email},{projection:{email:1,_id:0}})
         }catch(e){
             console.error(`Something went wrong in CheckDupEmail: ${e}`)
+            throw e
+        }
+    }
+
+    static async checkDupUsername(username){
+        try{
+            return await users.findOne({username},{projection:{username:1,_id:0}})
+        }catch(e){
+            console.error(`Something went wrong in checkDupUsername: ${e}`)
             throw e
         }
     }
@@ -159,9 +168,8 @@ export default class UserDAO{
         }
     }
 
-    static async updateUserToken(userId,refreshToken,){//ingredients,
+    static async updateUserToken(userId,refreshToken,){
         try{
-            
             const updateResponse = await users.updateOne(
                 {_id: new ObjectId(userId)},
                 {$set: {refreshToken,}},
