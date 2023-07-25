@@ -203,9 +203,6 @@ const MyAccount = () => {
                 setTimeout(()=>{
                     setBeenUpdated(false)
                 },5000)
-
-
-              // console.log(res.date)
             })
             .catch((e)=>{
               console.error(e)
