@@ -47,7 +47,6 @@ const MyAccount = () => {
     const [beenUpdated,setBeenUpdated] = useState(false)
 
     const getThisUserInfo = async () => {
-        console.log('getThisUserInfo')
         try{
             await UserDataService.getMe(auth.accessToken)
             .then(res => {
@@ -81,7 +80,6 @@ const MyAccount = () => {
     },[user])
 
     const changeInput = (e) => {
-        console.log(e.target)
         //setup variables for object key and object value
         const {value,name,type} = e.target
 
@@ -131,7 +129,6 @@ const MyAccount = () => {
     }
 
     const handleInputBlurCheckForDuplicates = async (e) => {
-        console.log(e.target)
 
         //deconstruct items being sent over
         const {value,name,type} = e.target
@@ -152,14 +149,12 @@ const MyAccount = () => {
             return
         }
         //run API and check if duplicate
-        console.log(data)
         try{
             await UserDataService.checkDups(data)
             .then(res => {
                 //response is status 200
                 //username is good to use
-                console.log(res)
-                console.log('item good to use')
+                
                 if(name==='username') {
                     setCheckingUsername(false)
                     setTakenUsername(false)
@@ -175,7 +170,6 @@ const MyAccount = () => {
                 if(!e?.response){
                     setErrMsg('No Server Response')
                 }else if (e.response?.status === 409){
-                    console.log('item in use')
                     if(name==='username') {
                         setCheckingUsername(false)
                         setTakenUsername(true)
@@ -200,8 +194,6 @@ const MyAccount = () => {
 
     const handleUpdate = async (e)=>{
         const {username, email} = user
-        // console.log(username)
-        // console.log(email)
 
         try{
             await UserDataService.updateUser(user, auth.accessToken)
@@ -235,11 +227,6 @@ const MyAccount = () => {
           }
 
     }
-
-    // console.log('user')
-    // console.log(user)
-    // console.log('default')
-    // console.log(userDefault)
 
     return(
         <section>
