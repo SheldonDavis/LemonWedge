@@ -37,6 +37,17 @@ const RecipeDataService = {
         return axiosPrivate.delete(`/recipes?_id=${id}`)
     },
 
+    //retrieve recipe tags
+    getTags:function(accessToken){
+        return axiosPrivate.get(`/recipes/tags`,
+        {
+            withCredentials:true,
+            headers:{
+                Authorization:`Bearer ${accessToken}`
+            }
+        })
+    },
+
 }
 
 export default RecipeDataService
