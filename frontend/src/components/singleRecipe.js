@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
 import jwt_decode from 'jwt-decode'
+
+//hooks
+import useAuth from '../hooks/useAuth'
+
+//components
 import ROLES from '../components/roles' 
+
 
 const SingleRecipe = React.forwardRef(({ recipe }, ref) => { 
     const {auth} = useAuth()
@@ -49,7 +54,7 @@ const SingleRecipe = React.forwardRef(({ recipe }, ref) => {
             <div className='BTNS'>
                 <Link to={`/recipes/${recipe._id}`} className='btn'>View Recipe</Link>
                 {
-                ((userIsEditor || userIsAdmin) && (userID===recipe.createdBy) )?(
+                ((userIsAdmin) || (userID===recipe.createdBy && userIsEditor) )?(
                 <Link to={`/recipes/manage/${recipe._id}`} className='btn'>Update</Link>
                 ):<></>
                 }
