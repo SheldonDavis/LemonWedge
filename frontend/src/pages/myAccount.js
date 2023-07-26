@@ -9,6 +9,7 @@ import CheckBoxList from '../components/CheckBoxList'
 
 //services
 import UserDataService from '../services/user.serv.js'
+import RecipeDataService from '../services/recipe.serv'
 
 //hooks
 import useAuth from '../hooks/useAuth'
@@ -42,6 +43,8 @@ const MyAccount = () => {
         updatedAt:'',
         username:'',
         _id:''})
+    const [recipeTagsText, setRecipeTagsText] = useState([])
+    const [recipeTagsVals, setRecipeTagsVals] = useState([])
     const [checkingUsername,setCheckingUsername] = useState(false)
     const [takenUsername,setTakenUsername] = useState(false)
     const [checkingEmail,setCheckingEmail] = useState(false)
@@ -72,8 +75,37 @@ const MyAccount = () => {
         }
     }
 
+    const getAllRecipeTags = async () => {
+        try{
+            await RecipeDataService.getTags(auth.accessToken)
+            .then(res => {
+                let tagTexts = []
+                let tagVals = []
+                res.data.map((val)=>{
+                    tagTexts.push(val.tagName)
+                    tagVals.push(val.tagval)
+                })
+                setRecipeTagsText(tagTexts)
+                setRecipeTagsVals(tagVals)
+            })
+            .catch((e)=>{
+                console.error(`${e.toString()}`)
+                if(!e?.response){
+                    setErrMsg('No Server Response')
+                }else{
+                    setErrMsg(`Error: ${e.response}`)
+                }
+                errRef.current.focus()
+            })
+        }catch(e){
+            console.error(e)
+            setErrMsg('Something went wrong while retrieving the recipe tags. Try again later.')
+        }
+    }
+
     useEffect(()=>{
         getThisUserInfo()
+        getAllRecipeTags()
     },[])
 
     useEffect(()=>{
@@ -94,7 +126,6 @@ const MyAccount = () => {
         if(type === 'checkbox'){
             let listIndex = Object.keys(user).indexOf(name)
             let currentValues = Object.values(user)[listIndex] || []
-            console.log(currentValues)
             let index = currentValues.indexOf(value)
             let newValues = []
 
@@ -103,6 +134,9 @@ const MyAccount = () => {
                 newValues = currentValues
                 //item to be removed is set to variable, ignorable. don't need to save this for later.
                 let removed = newValues.splice(index, 1)
+
+                //set empty array to null value
+                if(newValues.length===0)newValues=null
             }else{
                 //add value to array
                 newValues = [].concat(currentValues, value)
@@ -206,6 +240,7 @@ const MyAccount = () => {
             .then(res => {
                 setBeenUpdated(true)
                 setEditsMade(false)
+                setUserDefault(JSON.stringify(user))
                 setTimeout(()=>{
                     setBeenUpdated(false)
                 },5000)
@@ -344,9 +379,10 @@ const MyAccount = () => {
                     props={{
                         listName:'likes',
                         displayName:'Likes',
-                        listItems:['opt1','opt2','opt3','other'],
+                        listItems:recipeTagsText,
                         checkedVals:user.likes,
                         change: changeInput,
+                        listVals: recipeTagsVals,
                     }}
                 />
             </div>
@@ -356,9 +392,10 @@ const MyAccount = () => {
                     props={{
                         listName:'dislikes',
                         displayName:'Dislikes',
-                        listItems:['opt1','opt2','opt3','other'],
+                        listItems:recipeTagsText,
                         checkedVals:user.dislikes,
                         change: changeInput,
+                        listVals: recipeTagsVals,
                     }}
                 />
             </div>
