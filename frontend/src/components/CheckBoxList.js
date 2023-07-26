@@ -12,7 +12,7 @@ function CheckBoxList(props){
         listItems=[], 
         checkedVals=[], 
         change=function change(e){console.log(e)},
-        //change={(e)=>{console.log(e)}},
+        listVals=false,
     } = props.props
     return(
         <>
@@ -21,16 +21,16 @@ function CheckBoxList(props){
                 id={listName}
                 key={`field_${listName}`}
             >
-                {listItems.map((val)=>{
+                {listItems.map((val, index)=>{
                     return(<span key={`${val}_wrap`}>
                         <input 
                             key={`${val}_input`}
                             type='checkbox' 
                             onChange={(e)=>{change(e)}} 
                             id={`${listName}_${val}`} 
-                            value={val}
+                            value={listVals[index]||val}
                             name={listName}
-                            checked={checkedVals?.includes(val)?true:false}
+                            checked={checkedVals?.includes(listVals[index]||val)?true:false}
                         />
                         <label 
                             key={`${val}_lbl`}
