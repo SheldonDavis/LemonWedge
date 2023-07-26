@@ -1,16 +1,17 @@
 import mongodb from 'mongodb'
 const ObjectId = mongodb.ObjectId
 
-let recipes
+let recipes, recipeTags
 
 export default class RecipeDAO{
     static async injectDB(conn){
-        if(recipes){
+        if(recipes && recipeTags){
             return
         }
 
         try{
             recipes = await conn.db(process.env.MONGODB_DB).collection('recipes')
+            recipeTags = await conn.db(process.env.MONGODB_DB).collection('mealCategoryTags')
         }catch(e){
             console.error(`Unable to extablish a collection in recipes.DAO: ${e}`)
         }
@@ -166,6 +167,18 @@ export default class RecipeDAO{
 
         }catch(e){
             console.error(`Something went wrong in GetRecipeById: ${e}`)
+            throw e
+        }
+    }
+
+    static async GetRecipeTags(){
+        try{
+            let tags = await recipeTags.find()
+            const displayCursor = tags.limit(0).skip(0)
+            const tagList = await displayCursor.toArray()
+            return tagList
+        }catch(e){
+            console.error(`Something went wrong in GetRecipeTags: ${e}`)
             throw e
         }
     }

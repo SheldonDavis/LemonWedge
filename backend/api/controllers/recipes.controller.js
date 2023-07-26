@@ -130,4 +130,14 @@ export default class RecipeController{
             res.status(500).json({error:e})
         }
     }
+
+    static async apiGetRecipeTags(req,res,next){
+        try{
+            let tags = await RecipeDAO.GetRecipeTags()
+            res.json(tags)
+        }catch(e){
+            console.error(`api, ${e}`)
+            res.status(500).json({error:e})
+        }
+    }
 }

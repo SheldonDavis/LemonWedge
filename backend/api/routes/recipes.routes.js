@@ -19,7 +19,7 @@ router
         .post(verifyJWT, verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), RecipeCtrlr.apiPostRecipe)       //C - create
         //get all recipes
         //available to all
-        .get(verifyJWT, verifyRoles(ROLES_LIST.User), RecipeCtrlr.apiGetRecipes)                            //R - retrieve
+        .get(verifyJWT, verifyRoles(ROLES_LIST.User), RecipeCtrlr.apiGetRecipes)                            //R - read
         //update specific recipes
         //admin and editors only
         .patch(verifyJWT, verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), RecipeCtrlr.apiUpdateRecipe)    //U - update
@@ -31,5 +31,8 @@ router
 //get specific recipe 
 //accessible to all
 router.route('/id/:id').get(verifyJWT, verifyRoles(ROLES_LIST.User), RecipeCtrlr.apiGetRecipeById)//get specific recipe by id
+
+//get recipe tags
+router.route('/tags').get(verifyJWT, verifyRoles(ROLES_LIST.User), RecipeCtrlr.apiGetRecipeTags)
 
 export default router
