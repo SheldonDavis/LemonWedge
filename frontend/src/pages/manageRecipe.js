@@ -17,6 +17,9 @@ import InstructionInputs from '../components/instructionsInputs.js'
 import {faXmark} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
+//roles
+import ROLES from '../components/roles'
+
 const  ManageRecipe = () => {
   //using private connection to send through permissions
   const axiosPrivate = useAxiosPrivate()
@@ -28,6 +31,10 @@ const  ManageRecipe = () => {
   ? jwt_decode(auth.accessToken)
   : undefined
   const userID = decoded?.UserInfo?._id
+  const roles = decoded?.UserInfo?.roles || []
+
+  //if admin, set to true
+  const userIsAdmin = JSON.stringify(roles)?.includes(ROLES.Admin)
 
   //reference for in the event of errors
   const errRef=useRef()
@@ -61,7 +68,7 @@ const  ManageRecipe = () => {
       await RecipeDataService.get(id)
       .then(res => {
         //console.log(res.data)
-        if(userID !== res.data.createdBy){
+        if((userID !== res.data.createdBy)&&(!userIsAdmin)){
           navigate('/recipes/manage',{
             replace:true,
             state:{fromEditNoAuth:true},
