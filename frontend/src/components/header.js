@@ -31,7 +31,7 @@ const Header = (props) => {
                     <li>
                         <NavLink to={'/about'} >About</NavLink>
                     </li>
-                    { auth.accessToken ? (
+                    { auth.accessToken && (
                         <>
                             <li>
                                 <NavLink to={'/recipes'} end>Recipes</NavLink>
@@ -43,22 +43,21 @@ const Header = (props) => {
                                 <NavLink to={'/myAccount'}>My Account</NavLink>
                             </li>
                         </>
-                    ):<></>}
-                    { userIsAdmin || userIsEditor ? (
+                    )}
+                    { (userIsAdmin || userIsEditor) && (
                         <>
                             <li>
                                 <NavLink to={'/recipes/manage'} end>
                                     Create a Recipe
                                 </NavLink>
                             </li>
-                            { userIsAdmin ? (
+                            { userIsAdmin&& (
                                 <li>
                                     <NavLink to={'/admin'}>admin</NavLink>
                                 </li>                                
-                                ):<></>//show nothing
-                                }
+                            )}
                         </>
-                    ):<></>}
+                    )}
                     
                     <li>
                         { auth.accessToken ? (                                
