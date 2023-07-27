@@ -195,7 +195,14 @@ export default class UserController{
                 await UserDAO.updateUserToken(foundUser._id,refreshToken)
                 //send success
                 console.log(`User logged in. Hello, ${foundUser.username}`)
-                res.cookie('jwt', refreshToken, {httpOnly:true, sameSite:'None', secure:true, maxAge:24*60*60*1000})
+                let cookieOptions = { 
+                    maxAge:24*60*60*1000,
+                    httpOnly:true, 
+                    secure:true,
+                    sameSite:'None', 
+
+                }
+                res.cookie('jwt', refreshToken, cookieOptions)
                 // res.json({ roles, accessToken })
                 res.json({ accessToken })
             }else{
