@@ -9,7 +9,7 @@ export default class UserDAO{
         }
 
         try{
-            users=await conn.db(process.env.MONGODB_DB).collection('users')
+            users=await conn.db(process.env.MONGODB_DB_CLOUD).collection('users')
         }catch(e){
             console.error(`Unable to establish a collection in users.DAO: ${e}`)
         }
