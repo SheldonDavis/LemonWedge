@@ -305,6 +305,15 @@ const  ManageRecipe = () => {
           ): (
             <section>
               <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
+              
+              {
+                recipeID &&
+                <div className='formRow'>
+                  <Link to={`/recipes/${recipeID}`} className='btn' target='blank_'>View Recipe Card</Link>
+                </div>
+              }
+              
+
               <div className='formRow'>
                 <label htmlFor='recipeName'>{isEditing? 'Edit' : 'Create'} Recipe Name</label>
                 <input type='text' id='recipeName' name='recipename' required value={recipename} onChange={handleNameInputChange}/>
