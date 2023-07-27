@@ -146,3 +146,6 @@ input.missingRequired {border: 1px solid red;}
     fieldset input[type="checkbox"]:checked + label>svg{
        transform:rotate(90deg);
     }
+    nav li .active{
+        background-color: red;
+    }

@@ -1,6 +1,6 @@
 //header
 import React from 'react'
-import { Link, } from 'react-router-dom'
+import { NavLink, NavNavLink} from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import jwt_decode from 'jwt-decode'
 import ROLES from './roles'
@@ -29,31 +29,31 @@ const Header = (props) => {
             <nav>
                 <ul>
                     <li>
-                        <Link to={'/about'}>About</Link>
+                        <NavLink to={'/about'} >About</NavLink>
                     </li>
                     { auth.accessToken ? (
                         <>
                             <li>
-                                <Link to={'/recipes'}>Recipes</Link>
+                                <NavLink to={'/recipes'} end>Recipes</NavLink>
                             </li>
                             <li>
-                                <Link to={'/mealplan'}>My Meals</Link>
+                                <NavLink to={'/mealplan'}>My Meals</NavLink>
                             </li>
                             <li>
-                                <Link to={'/myAccount'}>My Account</Link>
+                                <NavLink to={'/myAccount'}>My Account</NavLink>
                             </li>
                         </>
                     ):<></>}
                     { userIsAdmin || userIsEditor ? (
                         <>
                             <li>
-                                <Link to={'/recipes/manage'}>
+                                <NavLink to={'/recipes/manage'} end>
                                     Create a Recipe
-                                </Link>
+                                </NavLink>
                             </li>
                             { userIsAdmin ? (
                                 <li>
-                                    <Link to={'/admin'}>admin</Link>
+                                    <NavLink to={'/admin'}>admin</NavLink>
                                 </li>                                
                                 ):<></>//show nothing
                                 }
@@ -62,9 +62,9 @@ const Header = (props) => {
                     
                     <li>
                         { auth.accessToken ? (                                
-                            <Link to={'/logout'}>Logout</Link>
+                            <NavLink to={'/logout'}>Logout</NavLink>
                             ):(
-                            <Link to={'/login'}>Login</Link>
+                            <NavLink to={'/login'}>Login</NavLink>
                             )
                             }
                     </li>
