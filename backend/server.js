@@ -16,6 +16,9 @@ import mailer from './api/routes/mail.routes.js'
 
 const app = express()
 
+app.set('port', process.env.PORT || 8000);
+app.set('host', '192.168.1.151');
+
 //URL whitelist so external access cannot be established
 app.use(credentials)
 app.use(cors(corsOptions))
