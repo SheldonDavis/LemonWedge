@@ -10,8 +10,10 @@ export default class RecipeDAO{
         }
 
         try{
-            recipes = await conn.db(process.env.MONGODB_DB_CLOUD).collection('recipes')
-            recipeTags = await conn.db(process.env.MONGODB_DB_CLOUD).collection('mealCategoryTags')
+            recipes = await conn.db(process.env.MONGODB_DB).collection('recipes')
+            // recipes = await conn.db(process.env.MONGODB_DB_CLOUD).collection('recipes')
+            recipeTags = await conn.db(process.env.MONGODB_DB).collection('mealCategoryTags')
+            // recipeTags = await conn.db(process.env.MONGODB_DB_CLOUD).collection('mealCategoryTags')
         }catch(e){
             console.error(`Unable to extablish a collection in recipes.DAO: ${e}`)
         }

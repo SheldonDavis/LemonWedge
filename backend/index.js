@@ -22,7 +22,8 @@ const port = process.env.PORT || 8000
 
 //establish database connection
 MongoClient.connect(
-    process.env.MONGODB_URI_CLOUD,
+    process.env.MONGODB_URI,
+    // process.env.MONGODB_URI_CLOUD,
     {
         wtimeoutMS:2500,
         useNewUrlParser:true,
