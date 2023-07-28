@@ -63,8 +63,7 @@ export default class RecipeDAO{
 
     }
 
-    static async addRecipe(recipename,description,ingredients,instructions,image64,imagename,createdBy,
-        ispro,){
+    static async addRecipe(recipename,description,ingredients,instructions,image64,imagename,createdBy, ispro, tags,){
         try{
             let date = new Date()
             let timestamp = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
@@ -79,6 +78,7 @@ export default class RecipeDAO{
                 createdAt:timestamp,
                 updatedAt:timestamp,
                 ispro:ispro,
+                tags:tags,
                 
             }
             return await recipes.insertOne(recipeDoc)
@@ -89,7 +89,7 @@ export default class RecipeDAO{
         }
     }
 
-    static async updateRecipe(recipeId,recipename,description,ingredients,instructions,image64,imagename,ispro,){
+    static async updateRecipe(recipeId,recipename,description,ingredients,instructions,image64,imagename,ispro, tags,){
         try{
             let date = new Date()
             let timestamp = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
@@ -104,6 +104,7 @@ export default class RecipeDAO{
                     imagename,
                     updatedAt:timestamp,
                     ispro,
+                    tags,
                 }},
             )
             return updateResponse

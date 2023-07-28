@@ -41,6 +41,7 @@ export default class RecipeController{
             const imagename = req.body.imagename
             const createdBy = req.body.createdBy
             const ispro = req.body.ispro
+            const tags = req.body.tags
             
 
             const recipeResponse = await RecipeDAO.addRecipe(
@@ -52,6 +53,7 @@ export default class RecipeController{
                 imagename,
                 createdBy,
                 ispro,
+                tags,
             )
             res.json({status:'success'})
         } catch(e){
@@ -70,6 +72,7 @@ export default class RecipeController{
             const imagename = req.body.imagename
             const createdBy = req.body.createdBy
             const ispro = req.body.ispro
+            const tags = req.body.tags
             
             //check if submittor is author
             const checkRecipeCreatedBy = await RecipeDAO.GetRecipeById(recipeId)
@@ -86,6 +89,7 @@ export default class RecipeController{
                 image64,
                 imagename,
                 ispro,
+                tags,
             )
                 
             let {error} = recipeResponse
