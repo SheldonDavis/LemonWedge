@@ -89,7 +89,7 @@ body{background-color:#bbb;}
 input.missingRequired {border: 1px solid red;}
 .missingIcon{color:red;}
 
-.floatingSubmitBar {
+.floatingNotificationBar {
     position: fixed;
     top: -7vh;
     left: 0;
@@ -98,11 +98,11 @@ input.missingRequired {border: 1px solid red;}
     transition: top ease-in 250ms;
 }
 
-.floatingSubmitBar.onscreen {
+.floatingNotificationBar.onscreen {
     top: 0;
 }
 
-.floatingSubmitBar p {
+.floatingNotificationBar p {
     margin: 0;
     padding: 6px 0;
 }

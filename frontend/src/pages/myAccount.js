@@ -271,7 +271,7 @@ const MyAccount = () => {
             <h1>My Information</h1>
             <p className={errMsg ? 'errmsg' : 'offscreen'} ref={errRef} >{errMsg}</p>
 
-            <div className={`floatingSubmitBar ${(editsMade||beenUpdated)&&(!takenEmail&&!takenUsername) ? 'onscreen': ''}`}>
+            <div className={`floatingNotificationBar ${(editsMade||beenUpdated)&&(!takenEmail&&!takenUsername) ? 'onscreen': ''}`}>
                 {beenUpdated &&
                     <>
                         <p>
