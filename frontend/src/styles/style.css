@@ -117,10 +117,11 @@ input.missingRequired {border: 1px solid red;}
         border-radius: 50px;
         background-color: transparent;
         border: solid 2px #C8A9CB;
-        padding: 0.5rem 1rem 0.5rem 0.5rem;
-        margin: 0.25rem;
+        padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+        margin: 0.2rem;
         display: inline-block;
         position: relative;
+        font-size:0.85rem;
         
         transition: all 500ms ease;
         -webkit-transition: all 500ms ease;
@@ -138,10 +139,12 @@ input.missingRequired {border: 1px solid red;}
     }
   
     fieldset input[type="checkbox"] + label>svg{
-       position:relative;
-       left:6px;
-       transform:rotate(45deg);
-       transition:transform 250ms ease;
+        position: relative;
+        left: 5px;
+        width: auto;
+        height: 0.75rem;
+        transform: rotate(45deg);
+        transition: transform 250ms ease;
     }
     fieldset input[type="checkbox"]:checked + label>svg{
        transform:rotate(90deg);

@@ -354,7 +354,6 @@ const  ManageRecipe = () => {
 
   const newStepID = Math.floor(Math.random()*100000)//instructions ? (instructions?.length+1) : 1
   const newIngredientID = Math.floor(Math.random()*100000)//ingredients ? (ingredients?.length+1) : 1
-  console.log('rerender')
   return (
             <section>
              
