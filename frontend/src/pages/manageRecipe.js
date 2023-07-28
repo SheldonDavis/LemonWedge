@@ -12,9 +12,10 @@ import RecipeDataService from '../services/recipe.serv'
 //components
 import IngredientInputs from '../components/ingredientInputs.js'
 import InstructionInputs from '../components/instructionsInputs.js'
+import CheckBoxList from '../components/CheckBoxList'
 
 //icons
-import {faXmark} from '@fortawesome/free-solid-svg-icons'
+import {faXmark,faCheckCircle} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 //roles
@@ -55,6 +56,10 @@ const  ManageRecipe = () => {
   const [imageName,setImageName] = useState('')
   const [isAcceptableFileType, setIsAcceptableFileType] = useState(true)
   const [isRecipePro, setIsRecipePro] = useState(false)
+  const [tags,setTags] = useState([])
+
+  const [recipeTagsText, setRecipeTagsText] = useState([])
+  const [recipeTagsVals, setRecipeTagsVals] = useState([])
 
   const [submitted, setSubmitted] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
@@ -82,7 +87,7 @@ const  ManageRecipe = () => {
         setInstructions(res.data.instructions)
         setImage(res.data.image64)
         setIsRecipePro(res.data.ispro)
-        console.log(res.data.ispro)
+        setTags(res.data.tags)
       })
       .catch((e) => {
         console.error(e)
@@ -96,18 +101,48 @@ const  ManageRecipe = () => {
       errRef.current.focus()
     }
   }
+
+  
+  const getAllRecipeTags = async () => {
+    try{
+        await RecipeDataService.getTags(auth.accessToken)
+        .then(res => {
+            let tagTexts = []
+            let tagVals = []
+            res.data.map((val)=>{
+                tagTexts.push(val.tagName)
+                tagVals.push(val.tagval)
+            })
+            setRecipeTagsText(tagTexts)
+            setRecipeTagsVals(tagVals)
+        })
+        .catch((e)=>{
+            console.error(`${e.toString()}`)
+            if(!e?.response){
+                setErrMsg('No Server Response')
+            }else{
+                setErrMsg(`Error: ${e.response}`)
+            }
+            errRef.current.focus()
+        })
+    }catch(e){
+        console.error(e)
+        setErrMsg('Something went wrong while retrieving the recipe tags. Try again later.')
+    }
+}
  
   useEffect(() => {
-      if(!id)return//do nothing more
-      // console.count(`getting recipe with ID : ${id}`)
-      getRecipe(id)
+    if(!id)return//do nothing more
+    // console.count(`getting recipe with ID : ${id}`)
+    getRecipe(id)
   },[id])
+
   useEffect(()=>{
     if(location?.state?.fromEditNoAuth ){
       setErrMsg('You are not the requested recipe\'s author, try creating a recipe first.')
       errRef.current.focus()
     }
-
+    getAllRecipeTags()
   },[])
 
 
@@ -180,11 +215,35 @@ const  ManageRecipe = () => {
       }),
     );
   }
+
+  //tags for this recipe
+  const handleCheckboxChange = (e) => {
+    console.log(e.target)
+    const {value,name,} = e.target
+    let currentValues = tags?.slice()||[]
+    let index = currentValues.indexOf(value)
+    let newValues = []
+
+    if(currentValues?.includes(value)){
+        //remove value from array
+        newValues = currentValues
+        //item to be removed is set to variable, ignorable. don't need to save this for later.
+        let removed = newValues.splice(index, 1)
+
+        console.log(newValues)
+        //set empty array to null value
+        if(newValues.length===0)newValues=null
+    }else{
+        //add value to array
+        newValues = [].concat(currentValues, value)
+    }
+    setTags(newValues)
+  }
   
   //recipe image handlers
   const convertImgToBase64 = (e) => {
 
-    console.log(e.target.files[0])//(1.5e+6)
+    // console.log(e.target.files[0])//(1.5e+6)
     //make sure file is not too large
     if(e.target.files[0].size > (1.5e+6)){
       console.log('file to large')
@@ -233,6 +292,7 @@ const  ManageRecipe = () => {
       imagename:imageName,
       createdBy: userID,
       ispro: isRecipePro,
+      tags: tags,
     }
     // console.log(data)
     if (isEditing){
@@ -242,6 +302,9 @@ const  ManageRecipe = () => {
         await RecipeDataService.updateRecipe(data)
         .then(res => {
           setSubmitted(true)
+          setTimeout(()=>{
+            setSubmitted(false)
+          },5000)
           // console.log(res.date)
         })
         .catch((e)=>{
@@ -291,19 +354,29 @@ const  ManageRecipe = () => {
 
   const newStepID = Math.floor(Math.random()*100000)//instructions ? (instructions?.length+1) : 1
   const newIngredientID = Math.floor(Math.random()*100000)//ingredients ? (ingredients?.length+1) : 1
+  console.log('rerender')
   return (
-        <>
-          {submitted ? (
             <section>
-              {isEditing?(
-                <h4>Your recipe was updated</h4>
-              ):(
-                <h4>You Submitted a new recipe</h4>
-              )}
-              <Link to={'/recipes'}>Back to all recipes</Link>
-            </section>
-          ): (
-            <section>
+             
+              <div className={`floatingNotificationBar ${(submitted)&& 'onscreen'}`}>
+                {isEditing?(
+                  <>
+                  <p>
+                    Your recipe was updated
+                    <span className='valid'><FontAwesomeIcon icon={faCheckCircle}/></span>
+                  </p>
+                  </>
+                ):(
+                  <>
+                  <p>
+                    You Submitted a new recipe
+                    <span className='valid'><FontAwesomeIcon icon={faCheckCircle}/></span>
+                  </p>
+                  </>
+                )}
+                {/* <Link to={'/recipes'}>Back to all recipes</Link> */}
+              </div>
+              
               <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
               
               {
@@ -413,11 +486,22 @@ const  ManageRecipe = () => {
                 </ol>
               </div>
 
+              {/* recipe tags items */}
+              <div className='formRow'>
+                <CheckBoxList
+                      props={{
+                          listName:'likes',
+                          displayName:'Tags',
+                          listItems:recipeTagsText,
+                          checkedVals:tags,
+                          change: handleCheckboxChange,
+                          listVals: recipeTagsVals,
+                      }}
+                  />
+              </div>
+
               <button onClick={(e)=>{saveRecipe()}} >{isEditing? 'Update Recipe' : 'Create Recipe'}</button>
             </section>
-            )
-          }
-        </>
       )
 
 
