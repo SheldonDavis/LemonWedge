@@ -8,8 +8,12 @@ import useAuth from '../hooks/useAuth'
 //components
 import ROLES from '../components/roles' 
 
+//icons
+import {faCheckCircle} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
-const SingleRecipe = React.forwardRef(({ recipe }, ref) => { 
+
+const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan }, ref, ) => { 
     const {auth} = useAuth()
     const decoded = auth?.accessToken
     ? jwt_decode(auth.accessToken)
@@ -22,7 +26,7 @@ const SingleRecipe = React.forwardRef(({ recipe }, ref) => {
     const userIsEditor = JSON.stringify(roles)?.includes(ROLES.Editor)
 
     //destructure the recipe
-    const {recipename, description, ingredients, image64, imagename, createdBy, ispro} = recipe
+    const {_id, recipename, description, ingredients, image64, imagename, createdBy, ispro} = recipe
 
     const recipeBODY = (
         <>
@@ -54,9 +58,15 @@ const SingleRecipe = React.forwardRef(({ recipe }, ref) => {
             <div className='BTNS'>
                 <Link to={`/recipes/${recipe._id}`} className='btn'>View Recipe</Link>
                 {
-                ((userIsAdmin) || (userID===recipe.createdBy && userIsEditor) )?(
-                <Link to={`/recipes/manage/${recipe._id}`} className='btn'>Update</Link>
-                ):<></>
+                ((userIsAdmin) || (userID===recipe.createdBy && userIsEditor) )&&
+                    <Link to={`/recipes/manage/${recipe._id}`} className='btn'>Update</Link>
+                }
+                {
+                    !mealplan?.includes(recipe._id)? (
+                        <button type='button' onClick={(e)=>addOrRemove(recipe._id)}>add to mealplan</button>
+                    ):(
+                        <span>Meal added to plan <FontAwesomeIcon className='valid' icon={faCheckCircle}/></span>
+                    )
                 }
             </div>
         </>
