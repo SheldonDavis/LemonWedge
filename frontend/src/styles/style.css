@@ -152,3 +152,38 @@ input.missingRequired {border: 1px solid red;}
     nav li .active{
         background-color: red;
     }
+
+    .creatingMealplan{
+        position:fixed;
+        bottom:0;
+        background-color:rgba(166,166,166,.85);
+        width:100%;
+    }
+
+    .mealplanWrapper{        
+        display:flex;
+        flex-wrap:nowrap;
+        gap:.15rem;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .mealplanRecipeList{
+        display:flex;
+        flex-wrap:nowrap;
+        gap:.15rem;
+        max-width:75%;
+        overflow-x:auto;
+    }
+
+    .recipeCircle{
+        height:50px;
+        width:50px;
+        background-color:black;
+        border-radius:100%;
+        overflow:hidden;
+        flex-shrink:0;
+        flex-grow:0;
+        margin-bottom: 10px;
+    }
+    .meaplanSaveWrapper button{margin-bottom:10px;}
