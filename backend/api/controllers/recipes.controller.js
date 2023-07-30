@@ -31,6 +31,19 @@ export default class RecipeController{
         res.json(response)
     }
 
+    static async getSpecificRecipes(req,res,next){
+        
+        let mealplan = req.query.meals
+ 
+        const {recipesList} = await RecipeDAO.getSpecificRecipes(mealplan)
+
+        let response = {
+            recipes: recipesList,
+        }
+        res.json(response)
+
+    }
+
     static async apiPostRecipe(req, res, next){
         try{
             const recipename = req.body.recipename

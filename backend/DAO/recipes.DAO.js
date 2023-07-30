@@ -63,6 +63,35 @@ export default class RecipeDAO{
 
     }
 
+    
+    static async getSpecificRecipes(mealplan){        
+        if (!mealplan) return {recipeList:[]}
+
+        let ids = JSON.parse(mealplan)
+
+        let obj_ids = ids.map(function(id) { return new ObjectId(id); });
+
+        let query = {_id: {$in: obj_ids}}
+        let cursor = ''
+        
+        try{
+            cursor = await recipes.find(query)
+        }catch(e){
+            console.error(`Unable to issue find command, ${e}`)
+            return {recipeList:[]}
+        }
+        
+        try{
+            const recipesList = await cursor.toArray()
+            // const totalNumRecipes = await recipes.countDocuments(query)
+            //return data as array (JSON)
+            return {recipesList}
+        }catch(e){
+            console.error(`Unable to convert cursor to array or problem countring documents, ${e}`)
+            return {recipeList:[]}
+        }
+    }
+
     static async addRecipe(recipename,description,ingredients,instructions,image64,imagename,createdBy, ispro, tags,){
         try{
             let date = new Date()

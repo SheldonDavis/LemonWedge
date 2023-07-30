@@ -35,4 +35,8 @@ router.route('/id/:id').get(verifyJWT, verifyRoles(ROLES_LIST.User), RecipeCtrlr
 //get recipe tags
 router.route('/tags').get(verifyJWT, verifyRoles(ROLES_LIST.User), RecipeCtrlr.apiGetRecipeTags)
 
+//get all recipes for items in mealplan
+router.route('/mealplan').get(RecipeCtrlr.getSpecificRecipes)
+//verifyJWT, verifyRoles(ROLES_LIST.User), 
+
 export default router
