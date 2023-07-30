@@ -48,6 +48,16 @@ const RecipeDataService = {
         })
     },
 
+    getMealplanRecipes:function(meals, accessToken){
+        return axiosPrivate.get(`/recipes/mealplan?meals=${meals}`,
+        {
+            withCredentials:true,
+            headers:{
+                Authorization:`Bearer ${accessToken}`
+            }
+        })
+    }
+
 }
 
 export default RecipeDataService
