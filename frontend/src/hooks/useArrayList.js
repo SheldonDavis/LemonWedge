@@ -20,6 +20,8 @@ const useArrayList = (key, initValue) => {
             // return typeof value ==='boolean' ? value : !prev
         })
     }
-return {value,addOrRemove}
+    const reset = () => setValue(initValue)
+    
+return {value,reset,addOrRemove}
 }
 export default useArrayList
