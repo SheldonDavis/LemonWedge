@@ -8,6 +8,9 @@ const useArrayList = (key, initValue) => {
             if (!prev) return [value]
             if(prev.includes(value)){
                 //doNothing
+                let index = prev.indexOf(value);
+                prev.splice(index, 1);
+
                 //maybe remove later?
                 return [...prev]
             }else{
