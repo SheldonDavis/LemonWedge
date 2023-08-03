@@ -65,7 +65,7 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan }, ref, )
                     !mealplan?.includes(recipe._id)? (
                         <button type='button' onClick={(e)=>addOrRemove(recipe._id)}>add to mealplan</button>
                     ):(
-                        <span>Meal added to plan <FontAwesomeIcon className='valid' icon={faCheckCircle}/></span>
+                        <span>added to mealplan <FontAwesomeIcon className='valid' icon={faCheckCircle}/></span>
                     )
                 }
             </div>
