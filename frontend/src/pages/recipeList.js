@@ -128,7 +128,7 @@ const RecipeList = (props) => {
                 
             })}
             </section>
-            <CreatingMealplan mealplan={value}/>
+            <CreatingMealplan mealplan={value} addOrRemove={addOrRemove}/>
             {isLoading && //show skeleton while loading
               [...Array(5).keys()].map((i, key)=>{
                 return <SkeletonRecipe key={key}/>
