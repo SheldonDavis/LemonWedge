@@ -19,7 +19,7 @@ const useRefreshToken = () => {
             })
             return response.data.accessToken
         }catch(err){
-            //console.error(err)
+            console.error(err)
         }
     }
     return refresh
