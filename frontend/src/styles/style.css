@@ -179,11 +179,35 @@ input.missingRequired {border: 1px solid red;}
     .recipeCircle{
         height:50px;
         width:50px;
-        background-color:black;
+        /* background-color:black; */
         border-radius:100%;
         overflow:hidden;
         flex-shrink:0;
         flex-grow:0;
         margin-bottom: 10px;
+    }
+    .recipeCircle img {
+        width: 100%;
+    }
+    .recipeCircle svg.placeholderRecipeImage {
+        width: 75%;
+        height: 100%;
+    }
+    .MealPlanRecipeOuterWrapper {
+        position: relative;
+        padding: 7px;
+    }
+    
+    .MealPlanRecipeOuterWrapper .removeThisRecipe {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color:black;
+        transition:color 250ms ease-out;
+    }
+    
+    .MealPlanRecipeOuterWrapper .removeThisRecipe:hover {
+        color:red;
+        cursor: pointer;
     }
     .meaplanSaveWrapper button{margin-bottom:10px;}
