@@ -42,7 +42,7 @@ const RecipeList = (props) => {
   },[])
 
   //add hook for accessing and using mealplan hook
-  const {value, addOrRemove} = useArrayList('mealplan',[])
+  const {value,reset,addOrRemove} = useArrayList('mealplan',[])
   
   //intersection observer reference
   const intObserver = useRef()
@@ -128,7 +128,7 @@ const RecipeList = (props) => {
                 
             })}
             </section>
-            <CreatingMealplan mealplan={value} addOrRemove={addOrRemove}/>
+            <CreatingMealplan mealplan={value} addOrRemove={addOrRemove} reset={reset}/>
             {isLoading && //show skeleton while loading
               [...Array(5).keys()].map((i, key)=>{
                 return <SkeletonRecipe key={key}/>
