@@ -94,8 +94,9 @@ export default class RecipeDAO{
 
     static async addRecipe(recipename,description,ingredients,instructions,image64,imagename,createdBy, ispro, tags,){
         try{
-            let date = new Date()
-            let timestamp = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
+            
+            let dateOptions = {hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false,}
+            let date = new Date().toLocaleDateString("en-CA", dateOptions)
             const recipeDoc = {
                 recipename:recipename,
                 description:description,
@@ -104,8 +105,8 @@ export default class RecipeDAO{
                 image64:image64,
                 imagename:imagename,
                 createdBy:createdBy,
-                createdAt:timestamp,
-                updatedAt:timestamp,
+                createdAt:date,
+                updatedAt:date,
                 ispro:ispro,
                 tags:tags,
                 
@@ -120,8 +121,9 @@ export default class RecipeDAO{
 
     static async updateRecipe(recipeId,recipename,description,ingredients,instructions,image64,imagename,ispro, tags,){
         try{
-            let date = new Date()
-            let timestamp = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
+            
+            let dateOptions = {hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false,}
+            let date = new Date().toLocaleDateString("en-CA", dateOptions)
             const updateResponse = await recipes.updateOne(
                 {_id: new ObjectId(recipeId)},
                 {$set: {
@@ -131,7 +133,7 @@ export default class RecipeDAO{
                     instructions,
                     image64,
                     imagename,
-                    updatedAt:timestamp,
+                    updatedAt:date,
                     ispro,
                     tags,
                 }},

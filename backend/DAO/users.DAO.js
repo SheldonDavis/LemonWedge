@@ -50,15 +50,16 @@ export default class UserDAO{
 
     static async postNewUser(user, pwd, email){
         try{
-            let date = new Date()
-            let timestamp = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`
+            
+            let dateOptions = {hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false,}
+            let date = new Date().toLocaleDateString("en-CA", dateOptions)
             const userDoc = {
                 username:user,
                 pwd:pwd,
                 email: email,
                 roles:{'User':2001},
-                createdAt:timestamp,
-                updatedAt:timestamp,
+                createdAt:date,
+                updatedAt:date,
             }
             return await users.insertOne(userDoc)
 
@@ -96,8 +97,9 @@ export default class UserDAO{
         dislikes,
         allergies,){
         try{
-            let date = new Date()
-            let timestamp = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}:${date.getMilliseconds()}`            
+            
+            let dateOptions = {hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false,}
+            let date = new Date().toLocaleDateString("en-CA", dateOptions)          
             const updateResponse = await users.updateOne(
                 {_id: new ObjectId(_id)},
                 {$set: {
@@ -108,7 +110,7 @@ export default class UserDAO{
                     likes:likes,
                     dislikes:dislikes,
                     allergies:allergies,
-                    updatedAt:timestamp,
+                    updatedAt:date,
                 }},
             )
             return updateResponse
