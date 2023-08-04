@@ -158,8 +158,12 @@ input.missingRequired {border: 1px solid red;}
         bottom:0;
         background-color:rgba(166,166,166,.85);
         width:100%;
+        overflow:hidden;
+        transition: 1s ease-out bottom;
     }
-
+    .creatingMealplan.inactive {
+        bottom: -25vh;
+    }
     .mealplanWrapper{        
         display:flex;
         flex-wrap:nowrap;
