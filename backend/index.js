@@ -9,6 +9,7 @@ import http from 'http'
 //import DAO
 import RecipeDAO from './DAO/recipes.DAO.js'
 import UserDAO from './DAO/users.DAO.js'
+import MealplanDAO from './DAO/mealplan.DAO.js'
 
 //load environmental variables
 dotenv.config()
@@ -37,6 +38,7 @@ MongoClient.connect(
 
     await RecipeDAO.injectDB(client)
     await UserDAO.injectDB(client)
+    await MealplanDAO.injectDB(client)
 
     // console.log(port)
 

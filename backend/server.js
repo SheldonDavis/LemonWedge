@@ -13,6 +13,7 @@ import corsOptions from './config/corsOptions.js'
 import recipes from './api/routes/recipes.routes.js'
 import users from './api/routes/users.routes.js'
 import mailer from './api/routes/mail.routes.js'
+import mealplan from './api/routes/mealplan.routes.js'
 
 const app = express()
 
@@ -36,6 +37,7 @@ app.use(cookieParser())
 app.use('/api/v1/recipes', recipes)
 app.use('/api/v1/users', users)
 app.use('/api/v1/sendMail', mailer)
+app.use('/api/v1/mealplan', mealplan)
 
 //show 404 if attempting to access elsewhere
 app.use('*', (req,res)=>res.status(404).json({error:'This request is unavailable.'}))
