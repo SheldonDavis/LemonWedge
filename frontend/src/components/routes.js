@@ -15,6 +15,7 @@ import ManageRecipe from '../pages/manageRecipe'
 import Logout from '../pages/logout'
 import Admin from '../pages/admin'
 import MyAccount from '../pages/myAccount'
+import Mealplan from '../pages/mealplan'
 
 //hooks
 import useAuth from '../hooks/useAuth'
@@ -69,6 +70,9 @@ const SiteRoutes = (props) => {
                         )
                     }/>
                     <Route path='/myAccount' element={<MyAccount/>}/>
+                    {/* link to mealplan */}
+                    k
+                    <Route path='/mealplan' element={<Mealplan/>}/>
                 </Route>
                 
                 {/* routes for admin AND editors */}
