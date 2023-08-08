@@ -19,5 +19,22 @@ export default class MealplanController{
         }
     }
 
+    static async apiGetMealPlanData(req,res,next){
+        try{
+            const user = req.query.user
+
+            const {recipesList} = await MealplanDAO.getMealPlanData(user)
+                
+            let response = {
+                recipes: recipesList,
+            }
+            res.json(response)
+
+
+        }catch(e){
+            res.status(500).json({error: e.message})
+        }
+    }
+
 
 }

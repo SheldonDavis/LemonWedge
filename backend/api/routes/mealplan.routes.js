@@ -12,7 +12,10 @@ import ROLES_LIST from '../../config/rolesList.js'
 const router = express.Router()
 
 //create new mealplan
-router.route('/create').post(MealplanCtrlr.apiPostNewMealplan)
-// router.route('/create').post(verifyJWT, verifyRoles(ROLES_LIST.User), MealplanCtrlr.apiPostNewMealplan)
+router.route('/create').post(verifyJWT, verifyRoles(ROLES_LIST.User), MealplanCtrlr.apiPostNewMealplan)
+// router.route('/create').post(MealplanCtrlr.apiPostNewMealplan)
+
+//get all recipes data passing mealplan id in query
+router.route('/latest').get(MealplanCtrlr.apiGetMealPlanData)
 
 export default router
