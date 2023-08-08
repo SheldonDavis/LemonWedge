@@ -39,4 +39,53 @@ export default class MealplanDAO{
         }
     }
 
+    static async getMealPlanData(user){
+        try{
+            let id = user
+
+            let query = [
+                {$match:{
+                    user: id,
+                    isComplete: false,
+                }},
+                {$unwind:{path: "$mealplan"}},
+                {$addFields:{
+                    recipeID: {
+                        $toObjectId: "$mealplan._id",
+                    }
+                }},
+                {$lookup:{
+                    from: "recipes",
+                    let: {ids: "$recipeID"},
+                    pipeline: [{
+                        $match: {$expr: {$eq: ["$_id", "$$ids"]}},
+                    }],
+                    as: "result",
+                }},
+            ]
+            let cursor = ''
+            
+            try{
+                cursor = await mealplan.aggregate(query)
+                // cursor = await mealplan.find({'_id':new ObjectId(id)})
+            }catch(e){
+                console.error(`Unable to issue find command, ${e}`)
+                return {recipeList:[]}
+            }
+            
+            try{
+                const recipesList = await cursor.toArray()
+                // const totalNumRecipes = await recipes.countDocuments(query)
+                //return data as array (JSON)
+                return {recipesList}
+            }catch(e){
+                console.error(`Unable to convert cursor to array or problem countring documents, ${e}`)
+                return {recipeList:[]}
+            }
+        }catch(e){
+            console.error(`unable to post mealplan: ${e}`)
+            return {error: e}
+        }
+    }
+
 }
