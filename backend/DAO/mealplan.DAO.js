@@ -10,7 +10,7 @@ export default class MealplanDAO{
         }
 
         try{
-            mealplan=await conn.db(process.env.MONGODB_DB).collection('meaplans')
+            mealplan=await conn.db(process.env.MONGODB_DB).collection('mealplans')
             // users=await conn.db(process.env.MONGODB_DB_CLOUD).collection('users')
         }catch(e){
             console.error(`Unable to establish a collection in mealplan.DAO: ${e}`)
@@ -44,25 +44,60 @@ export default class MealplanDAO{
             let id = user
 
             let query = [
-                {$match:{
-                    user: id,
-                    isComplete: false,
-                }},
-                {$unwind:{path: "$mealplan"}},
-                {$addFields:{
-                    recipeID: {
+                {
+                  $match:
+                    {
+                      user: "64c00553dded71732aa46951",
+                      isComplete: false,
+                    },
+                },
+                {
+                  $unwind:
+                    {
+                      path: "$mealplan",
+                    },
+                },
+                {
+                  $addFields:
+                    {
+                      recipeID: {
                         $toObjectId: "$mealplan._id",
-                    }
-                }},
-                {$lookup:{
-                    from: "recipes",
-                    let: {ids: "$recipeID"},
-                    pipeline: [{
-                        $match: {$expr: {$eq: ["$_id", "$$ids"]}},
-                    }],
-                    as: "result",
-                }},
-            ]
+                      },
+                    },
+                },
+                {
+                  $lookup:
+                    {
+                      from: "recipes",
+                      let: {
+                        ids: "$recipeID",
+                      },
+                      pipeline: [
+                        {
+                          $match: {
+                            $expr: {
+                              $eq: ["$_id", "$$ids"],
+                            },
+                          },
+                        },
+                      ],
+                      as: "mealplan.recipe",
+                    },
+                },
+                {
+                  $group:
+                    {
+                      _id: "$_id",
+                      mealplan: {
+                        $push: {
+                          _id: "$mealplan._id",
+                          isCooked: "$mealplan.isCooked",
+                          recipe: "$mealplan.recipe",
+                        },
+                      },
+                    },
+                },
+              ]
             let cursor = ''
             
             try{
@@ -86,6 +121,30 @@ export default class MealplanDAO{
             console.error(`unable to post mealplan: ${e}`)
             return {error: e}
         }
+    }
+
+    static async patchRecipeCookStatus(mID, rID, val){
+        try{
+            return await mealplan.updateOne(
+                {_id:new ObjectId(mID),"mealplan._id":rID},
+                {$set:{"mealplan.$.isCooked":val}}
+            )
+        }catch(e){
+            console.error(`unable to update recipe cooked status: ${e}`)
+            return {error: e}
+        }
+    }
+
+
+    static async patchMealplanClose(mID){
+      try{
+        return await mealplan.updateOne(
+            {_id:new ObjectId(mID)},
+            {$set:{"isComplete":true}}
+        )
+      }catch(e){
+        console.error(`unable to set mealplan to closed status: ${e} `)
+      }
     }
 
 }

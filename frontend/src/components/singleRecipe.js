@@ -13,7 +13,7 @@ import {faCheckCircle} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 
-const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan }, ref, ) => { 
+const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealplan=false, isCooked=false }, ref, ) => { 
     const {auth} = useAuth()
     const decoded = auth?.accessToken
     ? jwt_decode(auth.accessToken)
@@ -57,8 +57,18 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan }, ref, )
             ):(<></>)}
             <div className='BTNS'>
                 <Link to={`/recipes/${recipe._id}`} className='btn'>View Recipe</Link>
+                {forMealplan?(
+                <>
+                {isCooked?(
+                    <button type='button' onClick={(e)=>addOrRemove(recipe._id,false)}>Mark as uncooked</button>
+                ):(
+                    <button type='button' onClick={(e)=>addOrRemove(recipe._id,true)}>Mark as cooked</button>
+                )}
+                </>
+                ):(
+                <>
                 {
-                ((userIsAdmin) || (userID===recipe.createdBy && userIsEditor) )&&
+                    ((userIsAdmin) || (userID===recipe.createdBy && userIsEditor) )&&
                     <Link to={`/recipes/manage/${recipe._id}`} className='btn'>Update</Link>
                 }
                 {
@@ -68,6 +78,8 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan }, ref, )
                         <span>added to mealplan <FontAwesomeIcon className='valid' icon={faCheckCircle}/></span>
                     )
                 }
+                </>
+                )}
             </div>
         </>
     )

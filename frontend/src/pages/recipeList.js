@@ -107,7 +107,7 @@ const RecipeList = (props) => {
               </form>
             </section>
             <section className='recipesList'>
-            {results.map((recipe, i, key)=>{
+            {results.map((recipe, i)=>{
               if(results.length===i+1){
                 // console.log('last element')
                 return <SingleRecipe 
