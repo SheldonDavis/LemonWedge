@@ -96,7 +96,7 @@ const CreatingMealplan = ({mealplan=[], addOrRemove, reset}) => {
                 {isSubmitted?(
                 <>
                     <p>mealplan saved successfully.<FontAwesomeIcon className='valid' icon={faCheckCircle}/></p>
-                    <p><Link to={`/mealplan`} className='btn'>View your Mealplan</Link></p>
+                    <p><Link to={`/mealplan?clearLocal=true`} className='btn' >View your Mealplan</Link></p>
                 </>
                 ):(                
                     mealplan.length > 0 &&

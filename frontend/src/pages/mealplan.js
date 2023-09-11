@@ -1,9 +1,10 @@
 import React,{useState,useEffect, useRef} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 
 //hooks
 import useAuth from '../hooks/useAuth'
+import useArrayList from '../hooks/useArrayList'
 
 //services
 import MealplanDataService from '../services/mealplan.serv'
@@ -14,6 +15,7 @@ import SingleRecipe from '../components/singleRecipe'
 const Mealplan = () => {
     const {auth} = useAuth()
     const navigate = useNavigate()
+    const location = useLocation()
     //getting user ID
     const decoded = auth?.accessToken
     ? jwt_decode(auth.accessToken)
@@ -23,6 +25,8 @@ const Mealplan = () => {
     const [currentPlan, setCurrentPlan] = useState([])
     const [planID, setPlanId] = useState('')
     const [allCooked, setAllCooked] = useState(false)
+    //add hook for accessing and using mealplan hook
+    const {value,reset,addOrRemove} = useArrayList('mealplan',[])    
 
     //error message handling
     const errRef=useRef()
@@ -104,6 +108,10 @@ const Mealplan = () => {
 
     useEffect(() => {
         getMealsData(userID)
+        if(location.search.includes('clearLocal')){
+            reset()
+            navigate('/mealplan')
+        }
       },[])
 
     const closeMealplanToStartNew = async () => {
