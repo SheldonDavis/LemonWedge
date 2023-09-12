@@ -1,4 +1,4 @@
-
+/*custom styles*/
 body{background-color:#bbb;}
 .instructions {
     font-size: 0.75rem;
@@ -108,110 +108,201 @@ input.missingRequired {border: 1px solid red;}
 }
 
 
-    fieldset input[type="checkbox"] {
-        display: none;
-    }
-  
-    fieldset input[type="checkbox"] + label {
-        cursor: pointer;
-        border-radius: 50px;
-        background-color: transparent;
-        border: solid 2px #C8A9CB;
-        padding: 0.25rem 0.75rem 0.25rem 0.5rem;
-        margin: 0.2rem;
-        display: inline-block;
-        position: relative;
-        font-size:0.85rem;
-        
-        transition: all 500ms ease;
-        -webkit-transition: all 500ms ease;
-        -moz-user-select: -moz-none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-  
-  
-    fieldset input[type="checkbox"]:checked + label {
-        -webkit-transition: all 500ms ease;
-        transition: all 500ms ease;
-        background-color: #C8A9CB; color: white; border-color:#C8A9CB;
-    }
-  
-    fieldset input[type="checkbox"] + label>svg{
-        position: relative;
-        left: 5px;
-        width: auto;
-        height: 0.75rem;
-        transform: rotate(45deg);
-        transition: transform 250ms ease;
-    }
-    fieldset input[type="checkbox"]:checked + label>svg{
-       transform:rotate(90deg);
-    }
-    nav li .active{
-        background-color: red;
-    }
+fieldset input[type="checkbox"] {
+    display: none;
+}
 
-    .creatingMealplan{
-        position:sticky;
-        bottom:0;
-        background-color:rgba(166,166,166,.85);
-        width:100%;
-        overflow:hidden;
-        transition: 1s ease-out bottom;
-    }
-    .creatingMealplan.inactive {
-        bottom: -25vh;
-    }
-    .mealplanWrapper{        
-        display:flex;
-        flex-wrap:nowrap;
-        gap:.15rem;
-        justify-content:space-between;
-        align-items:center;
-    }
-
-    .mealplanRecipeList{
-        display:flex;
-        flex-wrap:nowrap;
-        gap:.15rem;
-        max-width:75%;
-        overflow-x:auto;
-    }
-
-    .recipeCircle{
-        height:50px;
-        width:50px;
-        /* background-color:black; */
-        border-radius:100%;
-        overflow:hidden;
-        flex-shrink:0;
-        flex-grow:0;
-        margin-bottom: 10px;
-    }
-    .recipeCircle img {
-        width: 100%;
-    }
-    .recipeCircle svg.placeholderRecipeImage {
-        width: 75%;
-        height: 100%;
-    }
-    .MealPlanRecipeOuterWrapper {
-        position: relative;
-        padding: 7px;
-    }
+fieldset input[type="checkbox"] + label {
+    cursor: pointer;
+    border-radius: 50px;
+    background-color: transparent;
+    border: solid 2px #C8A9CB;
+    padding: 0.25rem 0.75rem 0.25rem 0.5rem;
+    margin: 0.2rem;
+    display: inline-block;
+    position: relative;
+    font-size:0.85rem;
     
-    .MealPlanRecipeOuterWrapper .removeThisRecipe {
-        position: absolute;
-        top: 0;
-        right: 0;
-        color:black;
-        transition:color 250ms ease-out;
-    }
-    
-    .MealPlanRecipeOuterWrapper .removeThisRecipe:hover {
-        color:red;
-        cursor: pointer;
-    }
-    .meaplanSaveWrapper button{margin-bottom:10px;}
+    transition: all 500ms ease;
+    -webkit-transition: all 500ms ease;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+fieldset input[type="checkbox"]:checked + label {
+    -webkit-transition: all 500ms ease;
+    transition: all 500ms ease;
+    background-color: #C8A9CB; color: white; border-color:#C8A9CB;
+}
+
+fieldset input[type="checkbox"] + label>svg{
+    position: relative;
+    left: 5px;
+    width: auto;
+    height: 0.75rem;
+    transform: rotate(45deg);
+    transition: transform 250ms ease;
+}
+fieldset input[type="checkbox"]:checked + label>svg{
+    transform:rotate(90deg);
+}
+
+
+.creatingMealplan{
+    position:sticky;
+    bottom:0;
+    background-color:rgba(166,166,166,.85);
+    width:100%;
+    overflow:hidden;
+    transition: 1s ease-out bottom;
+}
+.creatingMealplan.inactive {
+    bottom: -25vh;
+}
+.mealplanWrapper{        
+    display:flex;
+    flex-wrap:nowrap;
+    gap:.15rem;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.mealplanRecipeList{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:.15rem;
+    max-width:75%;
+    overflow-x:auto;
+}
+
+.recipeCircle{
+    height:50px;
+    width:50px;
+    /* background-color:black; */
+    border-radius:100%;
+    overflow:hidden;
+    flex-shrink:0;
+    flex-grow:0;
+    margin-bottom: 10px;
+}
+.recipeCircle img {
+    width: 100%;
+}
+.recipeCircle svg.placeholderRecipeImage {
+    width: 75%;
+    height: 100%;
+}
+.MealPlanRecipeOuterWrapper {
+    position: relative;
+    padding: 7px;
+}
+
+.MealPlanRecipeOuterWrapper .removeThisRecipe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color:black;
+    transition:color 250ms ease-out;
+}
+
+.MealPlanRecipeOuterWrapper .removeThisRecipe:hover {
+    color:red;
+    cursor: pointer;
+}
+.meaplanSaveWrapper button{margin-bottom:10px;}
+
+/*navigation and headers*/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75em 0.5em;
+    align-items: center;    
+    position: sticky;
+    top: 0;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    background-color: rgba(182, 150, 185, 0.9);
+    width: 100%;
+    height: 100%;
+    transition: right ease 250ms;
+    overflow:hidden;
+    z-index:1;
+}
+nav li .active {
+    background-color: #B696B9;
+    box-shadow: 2px 2px 6px #a481a7;
+}
+.logo {
+    max-width: 250px;
+}
+.logo img {
+    width: 100%;
+}
+nav ul li a {
+    color: #0F0E11;
+    text-decoration: none;
+    font-size: 1.5em;
+    padding: .25em .5em;
+    display: block;
+}
+nav ul.shown {
+    right: 0;
+}
+.menuButton {
+    position: absolute;
+    top: 0.75em;
+    right: 0.5em;
+    height: 35px;
+    width: 35px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.menuButton span {
+    background-color: black;
+    width: 100%;
+    height: .2em;
+    display: block;
+    border-radius: 2px;
+    position:relative;
+    transition:all ease 350ms;
+
+}
+.menuButton span:nth-child(1) {
+    width:100%;
+    top: -5px;
+}
+.menuButton span:nth-child(2) {
+    width:85%;
+}
+.menuButton span:nth-child(3) {
+    width:70%;
+    top: 5px;
+}
+.close.menuButton span:nth-child(1) {
+    rotate:45deg;
+    top:3px;
+}
+.close.menuButton span:nth-child(2) {
+    width:100%;    
+    rotate:45deg;
+    opacity:0;
+}
+.close.menuButton span:nth-child(3) {
+    width:100%;
+    rotate:-45deg;
+    top:-3px;
+}
+
+/*navigation and headers*/

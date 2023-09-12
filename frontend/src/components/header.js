@@ -1,14 +1,17 @@
 //header
-import React from 'react'
-import { NavLink, NavNavLink} from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink, Link} from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import jwt_decode from 'jwt-decode'
 import ROLES from './roles'
 
+//logo import
+import logo from '../img/lemonWedge_wTxt.png'
+
 const Header = (props) => {
     
     const {auth} = useAuth()
-   
+    const [isMenuOpen, setIsMenuOpen] = useState(false)   
     //decode access token and grab roles
     const decoded = auth?.accessToken
         ? jwt_decode(auth.accessToken)
@@ -20,40 +23,54 @@ const Header = (props) => {
     //if editor, set to true
     const userIsEditor = JSON.stringify(roles)?.includes(ROLES.Editor)
 
+    function toggleMenu(){
+        setIsMenuOpen((current) => !current);
+    }
+    function forceCloseDrawer(){        
+        setIsMenuOpen(false);
+    }
+
     return(
     <>
         <header>
             <div className='logo'>
-                LEMONWEDGE logo
+                <Link to={'/'} onClick={(e)=>forceCloseDrawer()}>
+                    <img src={logo} alt='LemonWedge logo'/>
+                </Link>
             </div>
             <nav>
-                <ul>
+                <span className={isMenuOpen ? `menuButton close` : 'menuButton'} onClick={(e)=>toggleMenu()}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+                <ul className={isMenuOpen ? 'shown' : undefined}>
                     <li>
-                        <NavLink to={'/about'} >About</NavLink>
+                        <NavLink to={'/about'} onClick={(e)=>forceCloseDrawer()} >About LemonWedge</NavLink>
                     </li>
                     { auth.accessToken && (
                         <>
                             <li>
-                                <NavLink to={'/recipes'} end>Recipes</NavLink>
+                                <NavLink to={'/recipes'} onClick={(e)=>forceCloseDrawer()} end>View Recieps</NavLink>
                             </li>
                             <li>
-                                <NavLink to={'/mealplan'}>My Meals</NavLink>
+                                <NavLink to={'/mealplan'} onClick={(e)=>forceCloseDrawer()}>My Meal Plan</NavLink>
                             </li>
                             <li>
-                                <NavLink to={'/myAccount'}>My Account</NavLink>
+                                <NavLink to={'/myAccount'} onClick={(e)=>forceCloseDrawer()}>My Account</NavLink>
                             </li>
                         </>
                     )}
                     { (userIsAdmin || userIsEditor) && (
                         <>
                             <li>
-                                <NavLink to={'/recipes/manage'} end>
+                                <NavLink to={'/recipes/manage'} onClick={(e)=>forceCloseDrawer()} end>
                                     Create a Recipe
                                 </NavLink>
                             </li>
                             { userIsAdmin&& (
                                 <li>
-                                    <NavLink to={'/admin'}>admin</NavLink>
+                                    <NavLink to={'/admin'} onClick={(e)=>forceCloseDrawer()}>Admin</NavLink>
                                 </li>                                
                             )}
                         </>
@@ -61,9 +78,9 @@ const Header = (props) => {
                     
                     <li>
                         { auth.accessToken ? (                                
-                            <NavLink to={'/logout'}>Logout</NavLink>
+                            <NavLink to={'/logout'} onClick={(e)=>forceCloseDrawer()}>Logout</NavLink>
                             ):(
-                            <NavLink to={'/login'}>Login</NavLink>
+                            <NavLink to={'/login'} onClick={(e)=>forceCloseDrawer()}>Login</NavLink>
                             )
                             }
                     </li>
