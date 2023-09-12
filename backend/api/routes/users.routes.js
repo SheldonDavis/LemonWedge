@@ -39,6 +39,11 @@ import verifyRoles from '../../middleware/verifyRoles.MW.js'
             //disabled, unwrtten, unsure if needed
             // .delete(verifyJWT, verifyRoles(ROLES_LIST.Admin),UserCtrlr.apiDeleteRecipe)//inactive
 
+    router
+        //for updating userPW
+        .route('/manage/PW')        
+        .patch(verifyJWT, verifyRoles(ROLES_LIST.User), UserCtrlr.apiUpdateUserPW)
+
     //for logging in a user and checking their credentials
     router
         .route('/auth')

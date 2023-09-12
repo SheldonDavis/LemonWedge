@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 //icons
 import {faInfoCircle, faCheckCircle, faSpinner, faXmark} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -23,6 +25,7 @@ const MyAccount = () => {
 
     const errRef=useRef()
     const {auth} = useAuth()
+    const navigate = useNavigate()
     const [userDefault, setUserDefault]= useState({
         allergies:'',
         dislikes:'',
@@ -52,6 +55,9 @@ const MyAccount = () => {
     const [errMsg,setErrMsg] = useState('')
     const [editsMade, setEditsMade] = useState(false)
     const [beenUpdated,setBeenUpdated] = useState(false)
+
+    const [newPassword, setNewPassword] = useState('')
+    const [disablePWUpdate, setdisablePWUpdate] = useState(true)
 
     const getThisUserInfo = async () => {
         try{
@@ -160,6 +166,16 @@ const MyAccount = () => {
                 setErrMsg('Username must have 4-24 characters. Must begin with a letter. Letters, numbers, underscores, and hyphens allowed.')
                 errRef.current.focus()
             }
+        }else if (type==='password' && name==='password'){
+            if(PASSW_REGEX.test(value)){
+                setNewPassword(value)
+                setdisablePWUpdate(false)
+            }else{
+                setErrMsg('Password must have 8-24 characters. Must include uppercase and lowercase letters, a number and a special character. Allowed special characters: #, @, $, !, and %')
+                setNewPassword('')
+                setdisablePWUpdate(true)
+                errRef.current.focus()
+            }
         }else{
             //set or update user state to reflect the data in the input fields
             setUser({...user, [name] : value})
@@ -266,6 +282,54 @@ const MyAccount = () => {
 
     }
 
+    const handleUpdatePassword = async (e) =>{
+        let data={
+            _id:user._id,
+            pw:newPassword,
+        }
+        try{
+            await UserDataService.updatePassword(data, auth.accessToken)
+            .then(res => {
+                navigate('/logout',{
+                    replace:true,
+                    state:{newPW:true},
+                })
+            })
+            .catch((e)=>{
+              console.error(e)
+              setErrMsg(e.response.data.error || `Error status: ${e.response.status} - ${e.response.statusText}`)
+              errRef.current.focus()
+            })
+        }catch(err){
+            if(!err?.response){
+              setErrMsg('No Server Response')
+            }else{
+              setErrMsg('Password Update failed')
+              console.error(err)
+            }
+
+            errRef.current.focus()
+          }
+    }
+
+    async function confirmPasswordUpdate(){
+        if(window.confirm('Are you sure you want to update your password?\r\nSelecting \'OK\' will log you out and update your password.')){
+
+            let doubleCheckPW = prompt('Plese re-enter your new password')
+            if (doubleCheckPW===newPassword && newPassword !==''){
+                await handleUpdatePassword()
+            }else{
+                setErrMsg('The confirmation password did not match what was initially entered.\r\nPlease try again.')
+                errRef.current.focus()
+            }
+
+        }
+        // else{
+        //     // console.log('nothing should happen. password remains the same.')
+        // }
+        
+    }
+
     return(
         <section>
             <h1>My Information</h1>
@@ -340,6 +404,21 @@ const MyAccount = () => {
                 {takenEmail &&
                     <span className='missingIcon'><FontAwesomeIcon icon={faXmark} title='email taken'/></span>
                 }
+            </div>
+
+            <div className='UserDataRow'>
+                <label htmlFor='password'>Password</label>
+                <input
+                    type='password'
+                    id='password'
+                    name='password'
+                    autoComplete='off'
+                    defaultValue={newPassword}
+                    onChange={(e)=>{changeInput(e)}}
+                    // onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
+                    // className={!user.email ? 'missingRequired' : undefined}
+                />
+                <button type='button' disabled={disablePWUpdate} onClick={(e)=>{confirmPasswordUpdate()}}>Update Password</button>
             </div>
 
             <div className='UserDataRow'>

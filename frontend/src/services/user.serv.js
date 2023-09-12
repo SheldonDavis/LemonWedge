@@ -91,6 +91,18 @@ const UserDataService={
             'users/dups',//account create api url URL
             data,
         )
+    },
+
+    updatePassword:function(data, token){
+        return http.patch(
+            '/users/manage/PW',
+            data,
+            {
+                withCredentials:true,
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
     }
 
 }

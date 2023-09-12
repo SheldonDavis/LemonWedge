@@ -115,6 +115,33 @@ export default class UserController{
         }
     }
 
+    
+    static async apiUpdateUserPW(req, res, next){        
+        try{
+            
+            const {_id, pw} = req.body
+            // const pwd = req.body.pwd            
+            const hashedPwd = await bcrypt.hash(pw, 10)
+          
+            const userResponse = await UserDAO.updateUserPW(
+                _id,
+                hashedPwd,
+            )
+                
+            let {error} = userResponse
+            if(userResponse.error){
+                res.status(400).json({error})
+            }
+            if(userResponse.modifiedCount === 0){
+                throw new Error('unable to update user Password - some data does not match requirements or there is nothing to update')
+            }
+            res.json({ status: "success" })
+            
+        } catch(e){
+            res.status(500).json({error: e.message})
+        }
+    }
+
     static async apiHandleRefreshToken(req,res){
         try{
             const cookies = req.cookies

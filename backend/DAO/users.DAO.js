@@ -121,6 +121,27 @@ export default class UserDAO{
         }
     }
 
+    
+    static async updateUserPW(_id,
+        hashedPwd){
+        try{
+            
+            let dateOptions = {hour:"2-digit", minute:"2-digit", second:"2-digit", hour12:false,}
+            let date = new Date().toLocaleDateString("en-CA", dateOptions)          
+            const updateResponse = await users.updateOne(
+                {_id: new ObjectId(_id)},
+                {$set: {
+                    pwd:hashedPwd,
+                }},
+            )
+            return updateResponse
+            
+        } catch(e){
+            console.error(`unable to update user: ${e}`)
+            return {error: e}
+        }
+    }
+
     static async checkDupUsername_forLogin(username){
         try{
             return await users.findOne({username},{projection:{username:1,pwd:1,roles:1,_id:1,}})
