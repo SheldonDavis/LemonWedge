@@ -29,16 +29,7 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
     const {_id, recipename, description, ingredients, image64, imagename, createdBy, ispro} = recipe
 
     const recipeBODY = (
-        <>
-            <h5>{recipename}</h5>
-            <p>{description}</p>
-            {
-                //if recipe is pro recipe
-                ispro?(
-                    <p>PRO</p>
-                ):<></>
-            }
-            {
+        <>{
                 image64
                 ?(
                     <p><img src={image64} style={{height:'250px',}} alt={`${recipename} - ${imagename}`}/></p>
@@ -46,6 +37,15 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
                     <></>
                 )
             }
+            <h3>{recipename}</h3>
+            <p>{description}</p>
+            {/* {
+                //if recipe is pro recipe
+                ispro?(
+                    <p>PRO</p>
+                ):<></>
+            }
+            
             {ingredients?(
                 <ul>
                 {ingredients.map((ingredient, i)=>(
@@ -54,7 +54,7 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
                     </li>
                 ))}
                 </ul>
-            ):(<></>)}
+            ):(<></>)} */}
             <div className='BTNS'>
                 <Link to={`/recipes/${recipe._id}`} className='btn'>View Recipe</Link>
                 {forMealplan?(
