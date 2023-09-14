@@ -332,15 +332,13 @@ const MyAccount = () => {
 
     return(
         <section>
-            <h1>My Information</h1>
-            <p className={errMsg ? 'errmsg' : 'offscreen'} ref={errRef} >{errMsg}</p>
-
             <div className={`floatingNotificationBar ${(editsMade||beenUpdated)&&(!takenEmail&&!takenUsername) ? 'onscreen': ''}`}>
                 {beenUpdated &&
                     <>
                         <p>
                             Your profile has been updated
-                            <span className='valid'><FontAwesomeIcon icon={faCheckCircle}/></span>
+                            <span className='valid'><FontAwesomeIcon icon={faCheckCircle}/></span>                                              
+                            <button type='button' style={{opacity:'0'}}>i'm invisible</button>
                         </p>
                     </>
                 }
@@ -355,10 +353,15 @@ const MyAccount = () => {
                 {
                     !beenUpdated && !editsMade &&
                     <>
-                        <p style={{color:'transparent'}}>nothing to see here</p>
+                        <p style={{color:'transparent'}}>nothing to see here                        
+                            <button type='button' style={{opacity:'0'}}>i'm invisible</button>
+                        </p>
                     </>
                 }
             </div>
+            <h1>My Information</h1>
+            <p className={errMsg ? 'errmsg' : 'offscreen'} ref={errRef} >{errMsg}</p>
+
 
             <div className='UserDataRow'>
                 <label htmlFor='username'>Username:</label>
