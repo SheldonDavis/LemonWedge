@@ -51,7 +51,7 @@ const Header = (props) => {
                     { auth.accessToken && (
                         <>
                             <li>
-                                <NavLink to={'/recipes'} onClick={(e)=>forceCloseDrawer()} end>View Recieps</NavLink>
+                                <NavLink to={'/recipes'} onClick={(e)=>forceCloseDrawer()} end>View Recipes</NavLink>
                             </li>
                             <li>
                                 <NavLink to={'/mealplan'} onClick={(e)=>forceCloseDrawer()}>My Meal Plan</NavLink>
