@@ -9,7 +9,8 @@ const About = () => {
             --maybe an image--
             <p>Cooking for yourself helps in your day to day life. Providing feelings of productivity, competency, and self sufficiency, creating meals for one's self is an essential skill.</p>
             --maybe an image--
-            --FAKE REVEIWS--
+            <br/>
+            --FAKE REVIEWS--
             
         </section>
     )
