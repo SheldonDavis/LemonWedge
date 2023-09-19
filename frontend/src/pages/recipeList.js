@@ -13,6 +13,10 @@ import useInput from '../hooks/useInput'
 import useRecipes from '../hooks/useRecipes'
 import useArrayList from '../hooks/useArrayList'
 
+//icons
+import {faSearch, faEraser} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+
 //begin createing the recipe list page
 const RecipeList = (props) => {
   //required to retrieve recipes
@@ -88,7 +92,9 @@ const RecipeList = (props) => {
               <form className='FilterForm'  onSubmit={(e)=>{handleFiltersSubmit(e)}}>
                 <div className='recipeFiltersRow'>
                   <div className='input-group'>
+
                     <label htmlFor='RecipeTextInput'>Search for Keywords:</label>
+
                     <input 
                       type='text' 
                       placeholder='sandwich, chicken, grilled etc.' 
@@ -97,13 +103,18 @@ const RecipeList = (props) => {
                       ref={keywordsRef}
                       {...keywordsAttribs}
                     />
-                    <button type='submit' 
-                    >Search</button>
+
+                    <button type='submit' title='Search'><FontAwesomeIcon icon={faSearch} title='Search'/></button>
+
+                    <button type='button' onClick={(e)=>{handleClearForm(e)}} title='Clear Filters'><FontAwesomeIcon icon={faEraser} title='Clear Filters'/></button>
+
                   </div>
                 </div>                
+                
                 <div className='recipeFiltersRow'>
-                  <button type='button' onClick={(e)=>{handleClearForm(e)}}>Clear Filters</button>
+                    
                 </div>
+
               </form>
             </section>
             <section className='recipesList'>
