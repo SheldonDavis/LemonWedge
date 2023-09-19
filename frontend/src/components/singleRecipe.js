@@ -32,7 +32,9 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
         <>{
                 image64
                 ?(
-                    <p><img src={image64} style={{height:'250px',}} alt={`${recipename} - ${imagename}`}/></p>
+                    <span className='recipeImgWrapper'>
+                        <img src={image64} alt={`${recipename} - ${imagename}`}/>
+                    </span>
                 ):(
                     <></>
                 )
@@ -73,9 +75,9 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
                 }
                 {
                     !mealplan?.includes(recipe._id)? (
-                        <button type='button' onClick={(e)=>addOrRemove(recipe._id)}>add to mealplan</button>
+                        <button type='button' onClick={(e)=>addOrRemove(recipe._id)}>Add to mealplan</button>
                     ):(
-                        <span>added to mealplan <FontAwesomeIcon className='valid' icon={faCheckCircle}/></span>
+                        <span>Added to mealplan <FontAwesomeIcon className='valid' icon={faCheckCircle}/></span>
                     )
                 }
                 </>
