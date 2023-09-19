@@ -52,17 +52,25 @@ const Recipe = (props) => {
       <section>
         {recipe?(        
           <>
-            <h5>{recipe.recipename}</h5>
+            <p>
+            {
+                recipe.image64
+                ?(
+                  <img src={recipe.image64} alt={`${recipe.recipename} - ${recipe.imagename}`}/>
+                ):(
+                    <></>
+                )
+            }
+            </p>
+            <h3>{recipe.recipename}</h3>
             <p>{recipe.description}</p>
-            <p>is pro: {recipe.ispro?.toString()}</p>
+            {/* <p>is pro: {recipe.ispro?.toString()}</p> */}
             <ul>
               {
                 recipe.ingredients?.map((ingredient, i)=>(
                   <li id={`ingredient_${i}`} key={i}>
-                    {ingredient.name}, 
-                    {ingredient.measurement} 
-                    {!ingredient.note 
-                      ? <i>{ingredient.note}</i>
+                    {ingredient.name}, {ingredient.measurement} {!ingredient.note 
+                      ?<i>{ingredient.note}</i>
                       :<></>
                     }
                   </li>
