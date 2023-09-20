@@ -381,7 +381,7 @@ const  ManageRecipe = () => {
               {
                 recipeID &&
                 <div className='formRow'>
-                  <Link to={`/recipes/${recipeID}`} className='btn' target='blank_'>View Recipe Card</Link>
+                  <Link to={`/recipes/${recipeID}`} className='btn' >View Recipe Card</Link>
                 </div>
               }
               
