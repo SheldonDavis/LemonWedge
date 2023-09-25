@@ -18,7 +18,7 @@ import mealplan from './api/routes/mealplan.routes.js'
 const app = express()
 
 app.set('port', process.env.PORT || 8000);
-app.set('host', '192.168.1.151');
+//app.set('host', '192.168.1.151');
 
 //URL whitelist so external access cannot be established
 app.use(credentials)

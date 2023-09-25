@@ -43,11 +43,11 @@ MongoClient.connect(
     // console.log(port)
 
 
-    http.createServer(app).listen(app.get('port'), app.get('host'), function(){
-        console.log("Express server listening on port " + `http://${app.get('host')}/${app.get('port')}`);
-    });
+    // http.createServer(app).listen(app.get('port'), app.get('host'), function(){
+    //     console.log("Express server listening on port " + `http://${app.get('host')}/${app.get('port')}`);
+    // });
 
     app.listen(port,()=>{
-        console.log(`view on http://localhost:${port}/api/v1/`)
+        console.log(`view on https://lemonwedgebackend.onrender.com/:${port}/api/v1/`)
     })
 })
