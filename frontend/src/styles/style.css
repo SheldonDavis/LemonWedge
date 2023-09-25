@@ -1,5 +1,17 @@
 /*custom styles*/
-body{background-color:#bbb;}
+@import url('https://fonts.googleapis.com/css2?family=Asul:wght@400;700&display=swap');
+
+body{
+    background-color:#F4E4F5;
+    font-family: 'Asul', sans-serif;
+}
+.container {
+    margin: 0 0.1em;
+}
+button, input, textarea{
+    font-family: 'Asul', sans-serif;
+
+}
 .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
@@ -78,12 +90,13 @@ body{background-color:#bbb;}
 
 .singleRecipe {
     max-width: 75%;
-    margin: 0 auto 15px;
-    background-color: #bbb;
+    margin: 0 auto 1.25em;
+    background-color: #f4e4f5;
     border-radius: 1.5rem;
-    box-shadow: #aaa 4px 4px 8px, #ccc -1px -1px 8px;
-    padding:8px;
-
+    box-shadow: #ecceed 4px 4px 8px, #f7f1f7 -1px -1px 8px;
+    
+    overflow: hidden;
+    /* border: 1px solid black; */
 }
 
 input.missingRequired {border: 1px solid red;}
@@ -91,15 +104,15 @@ input.missingRequired {border: 1px solid red;}
 
 .floatingNotificationBar {
     position: fixed;
-    top: -7vh;
+    top: 0;
     left: 0;
-    background-color: rgba(166,166,166,.85);
+    background-color:rgba(200, 169, 203, .85);
     width: 100%;
     transition: top ease-in 250ms;
 }
 
 .floatingNotificationBar.onscreen {
-    top: 0;
+    top: 4.25em;
 }
 
 .floatingNotificationBar p {
@@ -107,6 +120,10 @@ input.missingRequired {border: 1px solid red;}
     padding: 6px 0;
 }
 
+
+fieldset {
+    border: 1px solid transparent;
+}
 
 fieldset input[type="checkbox"] {
     display: none;
@@ -122,7 +139,7 @@ fieldset input[type="checkbox"] + label {
     display: inline-block;
     position: relative;
     font-size:0.85rem;
-    
+    z-index:1;
     transition: all 500ms ease;
     -webkit-transition: all 500ms ease;
     -moz-user-select: -moz-none;
@@ -135,7 +152,9 @@ fieldset input[type="checkbox"] + label {
 fieldset input[type="checkbox"]:checked + label {
     -webkit-transition: all 500ms ease;
     transition: all 500ms ease;
-    background-color: #C8A9CB; color: white; border-color:#C8A9CB;
+    background-color: #C8A9CB; 
+    color: white; 
+    border-color:#C8A9CB;
 }
 
 fieldset input[type="checkbox"] + label>svg{
@@ -154,7 +173,7 @@ fieldset input[type="checkbox"]:checked + label>svg{
 .creatingMealplan{
     position:sticky;
     bottom:0;
-    background-color:rgba(166,166,166,.85);
+    background-color:rgba(223, 191, 225, .9);
     width:100%;
     overflow:hidden;
     transition: 1s ease-out bottom;
@@ -194,6 +213,7 @@ fieldset input[type="checkbox"]:checked + label>svg{
 .recipeCircle svg.placeholderRecipeImage {
     width: 75%;
     height: 100%;
+    /* color:#b667bb; */
 }
 .MealPlanRecipeOuterWrapper {
     position: relative;
@@ -223,24 +243,28 @@ header {
     align-items: center;    
     position: sticky;
     top: 0;
+    z-index: 2;
+    background-color: #F4E4F5;
+    box-shadow:2px 2px 6px #ead6eb;
 }
 nav ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 45px 0 0;
     position: fixed;
     top: 0;
     right: -100%;
-    background-color: rgba(182, 150, 185, 0.9);
+    background-color: rgba(244, 228, 245, .9);
     width: 100%;
     height: 100%;
     transition: right ease 250ms;
     overflow:hidden;
-    z-index:1;
+    z-index:5;
 }
+
 nav li .active {
-    background-color: #B696B9;
-    box-shadow: 2px 2px 6px #a481a7;
+    background-color: #F4E4F5;
+    box-shadow: 2px 2px 6px #d8bdd9;
 }
 .logo {
     max-width: 250px;
@@ -252,8 +276,9 @@ nav ul li a {
     color: #0F0E11;
     text-decoration: none;
     font-size: 1.5em;
-    padding: .25em .5em;
+    padding: .5em .5em;
     display: block;
+    text-align: center;
 }
 nav ul.shown {
     right: 0;
@@ -264,7 +289,7 @@ nav ul.shown {
     right: 0.5em;
     height: 35px;
     width: 35px;
-    z-index: 2;
+    z-index: 6;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -306,3 +331,123 @@ nav ul.shown {
 }
 
 /*navigation and headers*/
+
+form.FilterForm {
+    margin: 10px;
+}
+footer{padding:0.75em 0.5em;}
+
+
+.recipeImgWrapper {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    max-height: 200px;
+    align-items: center;
+}
+
+.recipeImgWrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.singleRecipe .BTNS {
+    padding: 0 8px 8px;
+}
+
+.recipeFiltersRow {
+    margin-bottom: .25em;
+}
+
+button {
+    background-color: #FEFDDC;
+    color: #000;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all ease 250ms;
+    font-size:1em;
+}
+
+button:hover {
+    background-color: #FCF9A7;
+}
+
+input[type=text], input[type=password], input[type=email] {
+    background-color: #dfbfe1;
+    border: 1px solid black;
+    color: #000;
+    line-height: 1.5em;
+    margin: 0.25em 0.33em;
+}
+
+.meaplanSaveWrapper {
+    margin-right: 0.75em;
+}
+.recipeFiltersRow button {
+    margin: 0 0.25em;
+    padding: 0.13em 0.4em;
+}
+.recipeFiltersRow .input-group input {
+    width: 96%;
+    margin: .75em 0;
+    font-size:.9em;
+}
+.singleRecipe .BTNS button {
+    margin: .5em;
+}
+button svg {
+    color: #b667bb;
+}
+
+a {
+    color: #b667bb;
+    font-size:1em;
+}
+
+section.recipesList {
+    margin-top: 1.25em;
+}
+.UserDataRow {
+    margin-bottom: .75em;
+}
+
+.UserDataRow button {
+    margin-left: .25em;
+}
+
+.UserDataRow input {
+    margin-left: .25em;
+}
+
+.floatingNotificationBar button {
+    margin-left: .5em;
+}
+
+.ManageRecipeWrapper {
+    margin-top: 10px;
+}
+
+p img {
+    max-width: 100%;
+    max-height: 300px;
+}
+.RecipePageLinks a {
+    padding: .25em;
+}
+
+ol {
+    list-style-position: inside;
+    padding-left: 0;
+}
+.allInstructionsList ol textarea {
+    width: 75%;
+}
+
+.ingredientRow {
+    margin: 1.25em 0;
+}
+.ingredientRow input {
+    width: 65%;
+}
