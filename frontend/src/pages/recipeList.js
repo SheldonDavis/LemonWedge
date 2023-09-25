@@ -77,7 +77,6 @@ const RecipeList = (props) => {
     setPageNum(0)
   }
 
-
   return(
     <>
     {
@@ -118,6 +117,7 @@ const RecipeList = (props) => {
               </form>
             </section>
             <section className='recipesList'>
+            
             {results.map((recipe, i)=>{
               if(results.length===i+1){
                 // console.log('last element')
@@ -140,10 +140,15 @@ const RecipeList = (props) => {
             })}
             </section>
             <CreatingMealplan mealplan={value} addOrRemove={addOrRemove} reset={reset}/>
-            {isLoading && //show skeleton while loading
+            {isLoading ? //show skeleton while loading
               [...Array(5).keys()].map((i, key)=>{
                 return <SkeletonRecipe key={key}/>
               })
+            :
+            results.length===0 &&
+              <>
+                <p>No recipes found.</p>
+              </>
             }
           </>
 
