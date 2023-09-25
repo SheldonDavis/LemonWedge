@@ -1,6 +1,6 @@
 .skeleton{
-    background-color:#aaa;
-    margin:0.75rem 0;
+    background-color:#dfbfe1;
+    margin: 0.75rem 0 ;
     border-radius:0.25rem;
 }
 
@@ -19,6 +19,9 @@
 
 .skeleton.width-50{
     width:50%;
+}
+.pad1_2rem{
+    padding:.5rem;
 }
 
 /*animation*/
