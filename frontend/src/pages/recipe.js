@@ -93,7 +93,7 @@ const Recipe = (props) => {
             </ol>
 
             <div className='RecipePageLinks'>
-              <a href="#" onClick={goBack}>Go Back</a>
+              <a href="#" onClick={goBack}>Back</a>
               {
                 ((userIsEditor || userIsAdmin) && (userID === recipe.createdBy))?(         
                   <>
