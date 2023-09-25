@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "babel emailTemplates -d emailTemplates",
-    "start": "nodemon"
+    "build": "",
+    "build2": "babel emailTemplates -d emailTemplates",
+    "start": ""
   },
   "author": "",
   "license": "ISC",

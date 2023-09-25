@@ -2,7 +2,7 @@
  * PROCESS: 
  * 1. create email template using react-email/components
  * 2. "npm run build " - from terminal : this creates using js files for node from the emailTemplates folder's JSX files
- * 3. use new js file where I would need to pull the original JSX email template
+ * 3. use new js file where I would need to pull the original JSX email template, they are placed into the same folder for sanity
  **/
 import react from 'react';
 import { Body, Html, Container, Tailwind, Text, Button, Heading, Head } from '@react-email/components';
