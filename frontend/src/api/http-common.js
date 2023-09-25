@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 //url where abckend API lives
-const BASE_URL = 'http://localhost:5000/api/v1'
-// const BASE_URL = 'http://192.168.1.151:5000/api/v1'
+// const BASE_URL = 'http://localhost:5000/api/v1'
+const BASE_URL = 'https://lemonwedgebackend.onrender.com/api/v1'
 
 //base level api access
 export default axios.create({
