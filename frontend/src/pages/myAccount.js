@@ -369,7 +369,7 @@ const MyAccount = () => {
                     type='text'
                     id='username'
                     name='username'
-                    autoComplete='off'
+                    autoComplete='new-username'
                     defaultValue={user.username}
                     onChange={(e)=>{changeInput(e)}}
                     onBlur={(e)=>{setCheckingUsername(true);handleInputBlurCheckForDuplicates(e);}}
@@ -392,7 +392,7 @@ const MyAccount = () => {
                     type='email'
                     id='email'
                     name='email'
-                    autoComplete='off'
+                    autoComplete='new-email'
                     defaultValue={user.email}
                     onChange={(e)=>{changeInput(e)}}
                     onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
@@ -415,7 +415,7 @@ const MyAccount = () => {
                     type='password'
                     id='password'
                     name='password'
-                    autoComplete='off'
+                    autoComplete='new-password'
                     defaultValue={newPassword}
                     onChange={(e)=>{changeInput(e)}}
                     // onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
