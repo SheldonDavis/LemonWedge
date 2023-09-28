@@ -47,7 +47,7 @@ export default class MealplanDAO{
                 {
                   $match:
                     {
-                      user: "64c00553dded71732aa46951",
+                      user: id,
                       isComplete: false,
                     },
                 },
