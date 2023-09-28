@@ -51,7 +51,6 @@ const Recipe = (props) => {
     // console.log('getting recipe with ID')
     getRecipe(id)
   },[id])
-
     return (
       <section>
         {recipe?(        
@@ -73,7 +72,14 @@ const Recipe = (props) => {
               {
                 recipe.ingredients?.map((ingredient, i)=>(
                   <li id={`ingredient_${i}`} key={i}>
-                    {ingredient.name}, {ingredient.measurement} {!ingredient.note 
+                    <strong>{
+                    ingredient.name
+                    }</strong>{
+                    ingredient.measurement
+                      ?<>, {ingredient.measurement}</>
+                      :<></>
+                    } {
+                    ingredient.note 
                       ?<i>{ingredient.note}</i>
                       :<></>
                     }
