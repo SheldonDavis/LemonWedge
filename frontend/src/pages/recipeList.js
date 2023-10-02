@@ -141,9 +141,13 @@ const RecipeList = (props) => {
             </section>
             <CreatingMealplan mealplan={value} addOrRemove={addOrRemove} reset={reset}/>
             {isLoading ? //show skeleton while loading
-              [...Array(5).keys()].map((i, key)=>{
-                return <SkeletonRecipe key={key}/>
-              })
+              <div className='skeletonOuterWrapper'>
+              {
+                [...Array(5).keys()].map((i, key)=>{
+                  return <SkeletonRecipe key={key}/>
+                })
+              }
+              </div>
             :
             results.length===0 &&
               <>
