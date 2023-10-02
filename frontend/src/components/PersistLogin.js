@@ -15,6 +15,7 @@ const PersistLogin = () => {
     const {auth} = useAuth()
     const [persist] = useLocalStorage('persist', false)
 
+    
     useEffect(() => {
         const verifyRefreshToken = async()=>{
             try{
@@ -31,7 +32,6 @@ const PersistLogin = () => {
        
     },[])
 
-
     const loadingTextOptions = [
         'Boiling water',
         'Preheating oven',
@@ -41,9 +41,16 @@ const PersistLogin = () => {
         'Mincing garlic',
         'Zesting lemons',
         'Preparing marinade',
+        'Peeling potatoes',
     ]
+    const [textOption, setTextOption] = useState(Math.floor(Math.random()*loadingTextOptions.length))
 
-    const textOption = Math.floor(Math.random()*loadingTextOptions.length)
+    if(isLoading){ 
+        setTimeout(function(){
+            setTextOption(Math.floor(Math.random()*loadingTextOptions.length))
+        },2000)
+    }
+       
 
 
     return(
