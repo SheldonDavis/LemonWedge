@@ -60,31 +60,37 @@ function IngredientInputs({ingredientKey, name='', measurement='', note='', _id=
 
     return(
         <>
-            <label htmlFor='name'>Ingredient:</label>
-            <input type='text' id='name'  placeholder='Bread' onChange={(e)=>{
-                setIngName(e.target.value)
-                setImpState('updating')
-                setErrMsg('')       
-                }} value={ingName}/>
+            <div className='ingredientInputWrapper'>
+                <span className='ingredientinputLine'>
+                    <label htmlFor='name'>Ingredient:</label>
+                    <input type='text' id='name'  placeholder='Bread' onChange={(e)=>{
+                        setIngName(e.target.value)
+                        setImpState('updating')
+                        setErrMsg('')       
+                        }} value={ingName}/>
 
-            &nbsp;
+                </span>
+                <span className='ingredientinputLine'>
+                    <label htmlFor='measurement'>Measurement:</label>
+                    <input type='text' id='measurement'  placeholder={`2 slices`} onChange={(e)=>{
+                        setIngMeasurement(e.target.value)
+                        setImpState('updating')
+                        setErrMsg('')       
+                        }} value={ingMeasurement}/>
 
-            <label htmlFor='measurement'>Measurement:</label>
-            <input type='text' id='measurement'  placeholder={`2 slices`} onChange={(e)=>{
-                setIngMeasurement(e.target.value)
-                setImpState('updating')
-                setErrMsg('')       
-                }} value={ingMeasurement}/>
+                </span>
+                <span className='ingredientinputLine'>
+                    <label htmlFor='note'>Notes:</label>
+                    <input type='text' id='note'  placeholder='Fresh is best!' onChange={(e)=>{
+                        setIngNote(e.target.value)
+                        setImpState('updating')
+                        setErrMsg('')       
+                    }} value={ingNote}/>
 
-            &nbsp;
+                </span>
 
-            <label htmlFor='note'>Notes:</label>
-            <input type='text' id='note'  placeholder='Fresh is best!' onChange={(e)=>{
-                setIngNote(e.target.value)
-                setImpState('updating')
-                setErrMsg('')       
-            }} value={ingNote}/>
 
+            </div>
 
             {//create add button for adding a new ingedient
                 impState==='new' || newRow
