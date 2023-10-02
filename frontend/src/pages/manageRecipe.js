@@ -391,7 +391,7 @@ const  ManageRecipe = () => {
                 <input type='text' id='recipeName' name='recipename' required value={recipename} onChange={handleNameInputChange}/>
               </div>
               
-              <div className='formRow'>
+              {/* <div className='formRow'>
                 <p>Is this a premium reicpe?
                   <input 
                     id='recipeIsPro' 
@@ -403,7 +403,7 @@ const  ManageRecipe = () => {
 
                 </p>
                 
-              </div>
+              </div> */}
 
               <div className='formRow'>
               <label htmlFor='description'>{isEditing? 'Edit' : 'Create'} Recipe Description</label>
@@ -451,13 +451,13 @@ const  ManageRecipe = () => {
 
               {/* intructions item: works similar to ingredients */}
               <div className='allInstructionsList'>
-                <p>Intructions:</p>
+                <p>Instructions:</p>
                 <ol>
                   {//loop through all current items in instrucitons state
                     instructions
                       ?(
                         instructions?.map((step, i) => (
-                          <li key={i}>
+                          <li key={i} className=''>
                             
                             <button type='button' onClick={(e)=>removeStep(step._id)} className={`delete_ingItem_${step._id}`}><FontAwesomeIcon icon={faXmark}/></button>
                             <InstructionInputs 
