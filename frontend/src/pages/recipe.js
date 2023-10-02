@@ -52,7 +52,7 @@ const Recipe = (props) => {
     getRecipe(id)
   },[id])
     return (
-      <section>
+      <section className='fullRecipePage'>
         {recipe?(        
           <>
             <p>
@@ -68,7 +68,7 @@ const Recipe = (props) => {
             <h3>{recipe.recipename}</h3>
             <p>{recipe.description}</p>
             {/* <p>is pro: {recipe.ispro?.toString()}</p> */}
-            <ul>
+            <ul className='ingredientsBulletList'>
               {
                 recipe.ingredients?.map((ingredient, i)=>(
                   <li id={`ingredient_${i}`} key={i}>
@@ -87,7 +87,7 @@ const Recipe = (props) => {
                 ))
               } 
             </ul>
-            <ol>
+            <ol className='instructionsOrderedList'>
               {
                 recipe.instructions?.map((step, i)=>(
                   <li id={`step_${i}`} key={i}>
