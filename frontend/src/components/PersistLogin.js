@@ -5,7 +5,7 @@ import useAuth from '../hooks/useAuth.js'
 import useLocalStorage from '../hooks/useLocalStorage'
 
 //icons
-import {faSpinner} from '@fortawesome/free-solid-svg-icons'
+import {faSpinner, faEllipsis} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 
@@ -32,12 +32,29 @@ const PersistLogin = () => {
     },[])
 
 
+    const loadingTextOptions = [
+        'Boiling water',
+        'Preheating oven',
+        'Firing up the grill',
+        'Chopping onions',
+        'Toasting bread',
+        'Mincing garlic',
+        'Zesting lemons',
+        'Preparing marinade',
+    ]
+
+    const textOption = Math.floor(Math.random()*loadingTextOptions.length)
+
+
     return(
         <>
             {!persist
                 ?<Outlet/>
                 :isLoading  
-                    ?<FontAwesomeIcon icon={faSpinner} spin />
+                    ?<>
+                        {/* <FontAwesomeIcon icon={faSpinner} spin /> */}
+                        <p className='LoadingText'><i>{loadingTextOptions[textOption]} </i><FontAwesomeIcon icon={faEllipsis} fade /></p>
+                    </>
                     :<Outlet/>
             }
         </>
