@@ -4,10 +4,16 @@
 body{
     background-color:#F4E4F5;
     font-family: 'Asul', sans-serif;
+    line-height: 1.33em;
 }
-.container {
+h1, h2, h3, h4, h5, p, a, label, button, li{ font-size:1em;}
+h1 {font-size: 1.33em;}
+h2 {font-size: 1.25em;}
+h3 {font-size: 1.15em;}
+ul li {text-align: left;}
+/* .container {
     margin: 0 0.1em;
-}
+} */
 button, input, textarea{
     font-family: 'Asul', sans-serif;
 
@@ -15,7 +21,7 @@ button, input, textarea{
 .instructions {
     font-size: 0.75rem;
     border-radius: 0.5rem;
-    background: #000;
+    background: #0F0E11;
     color: #fff;
     padding: 0.25rem;
     position: relative;
@@ -61,7 +67,7 @@ button, input, textarea{
     font-size: 0.75rem;
     margin-top: 10px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-end;
 }
 
@@ -89,7 +95,7 @@ button, input, textarea{
 }
 
 .singleRecipe {
-    max-width: 75%;
+    max-width:85%;
     margin: 0 auto 1.25em;
     background-color: #f4e4f5;
     border-radius: 1.5rem;
@@ -98,7 +104,12 @@ button, input, textarea{
     overflow: hidden;
     /* border: 1px solid black; */
 }
-
+.singleRecipe h3 {
+    margin: .5em .1em;
+}
+.singleRecipe p {
+    margin: .5em .1em;
+}
 input.missingRequired {border: 1px solid red;}
 .missingIcon{color:red;}
 
@@ -267,10 +278,11 @@ nav li .active {
     box-shadow: 2px 2px 6px #d8bdd9;
 }
 .logo {
-    max-width: 250px;
+    max-width: 75%;
 }
 .logo img {
     width: 100%;
+    max-width:250px;
 }
 nav ul li a {
     color: #0F0E11;
@@ -368,6 +380,7 @@ button {
     cursor: pointer;
     transition: all ease 250ms;
     font-size:1em;
+    padding: 0.15em 0.33em;
 }
 
 button:hover {
@@ -403,7 +416,6 @@ button svg {
 
 a {
     color: #b667bb;
-    font-size:1em;
 }
 
 section.recipesList {
@@ -447,7 +459,117 @@ ol {
 
 .ingredientRow {
     margin: 1.25em 0;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    justify-content: center;
 }
-.ingredientRow input {
+/* .ingredientRow input {
     width: 65%;
+} */
+
+.ingredientsBulletList li {
+    text-align: left;
+}
+
+.instructionsOrderedList li {
+    text-align: left;
+}
+
+ul.ingredientsBulletList, ol.instructionsOrderedList {
+    list-style-position: inside;
+    padding-left: 0;
+    margin: 0 0.75em 1em;
+}
+
+ul.ingredientsBulletList li, ol.instructionsOrderedList li {
+    padding-bottom: .33em;
+}
+
+
+
+.ingredientInputWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.ingredientinputLine {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.allInstructionsList li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+    gap: 1em;
+}
+
+p.LoadingText {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.1em;
+}
+p.LoadingText svg{position:relative;bottom:-2px;}
+
+.fullRecipePage p {
+    margin-left: 0.75em;
+    margin-right: 0.75em;
+}
+
+@media (min-width: 768px){
+    body{line-height:1.5em;}
+    h1, h2, h3, h4, h5, p, a, label, button, li {font-size: 1.2em;   }
+    p a{font-size: 1.15em;}
+    h1 {font-size: 1.88em;}
+    h2 {font-size: 1.75em;}
+    h3 {font-size: 1.6em;}
+    p {line-height: 1.5em;}
+    button, input, textarea{font-size:1.15em;}
+    p button, p input, p textarea{font-size:1em;}
+    .recipeFiltersRow .input-group input{font-size: 1.15em;}
+    fieldset input[type="checkbox"] + label {font-size: 1.33em;}
+    fieldset input[type="checkbox"] + label>svg {height: 1.15rem;}
+    button {font-size: 1.33em;}    
+
+    .formRow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin:1em .75em;
+        gap: .33em;
+    }
+
+    ul.ingredientsBulletList li, ol.instructionsOrderedList li {padding-bottom: 0.5em;}
+
+    section.recipesList, .skeletonOuterWrapper {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: self-start;
+    }    
+    .singleRecipe {
+        max-width: 45%;
+    }    
+    .singleRecipe p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .skeletonOuterWrapper .singleRecipe {
+        width: 45%;
+    }   
+    
+    .instructions {
+        font-size: 1em;
+        bottom: 0;
+    } 
+    
+
 }
