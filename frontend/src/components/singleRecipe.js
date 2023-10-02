@@ -70,7 +70,8 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
                 ):(
                 <>
                 {
-                    ((userIsAdmin) || (userID===recipe.createdBy && userIsEditor) )&&
+                    // ((userIsAdmin) || (userID===recipe.createdBy && userIsEditor) )&&
+                    ((userID===recipe.createdBy && userIsEditor) )&&
                     <Link to={`/recipes/manage/${recipe._id}`} className='btn'>Update</Link>
                 }
                 {
