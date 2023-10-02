@@ -48,6 +48,6 @@ MongoClient.connect(
     // });
 
     app.listen(port,()=>{
-        console.log(`view on https://lemonwedgebackend.onrender.com/:${port}/api/v1/`)
+        console.log(`view on https://lemonwedgebackend.onrender.com:${port}/api/v1/`)
     })
 })
