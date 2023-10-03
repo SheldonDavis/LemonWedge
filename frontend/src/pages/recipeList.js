@@ -144,7 +144,7 @@ const RecipeList = (props) => {
             {isLoading ? //show skeleton while loading
               <div className='skeletonOuterWrapper'>
               {
-                [...Array(5).keys()].map((i, key)=>{
+                [...Array(6).keys()].map((i, key)=>{
                   return <SkeletonRecipe key={key}/>
                 })
               }
