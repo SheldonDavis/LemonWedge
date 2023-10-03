@@ -39,11 +39,12 @@ const RecipeList = (props) => {
   //set reference to searchbox
   const keywordsRef = useRef()
   //focus search box
-  useEffect(()=>{
-    if(auth.accessToken){//login token still valid
-      keywordsRef.current.focus()
-    }
-  },[])
+  //disabled as it became annoying on mobile.
+  // useEffect(()=>{
+  //   if(auth.accessToken){//login token still valid
+  //     keywordsRef.current.focus()
+  //   }
+  // },[])
 
   //add hook for accessing and using mealplan hook
   const {value,reset,addOrRemove} = useArrayList('mealplan',[])
