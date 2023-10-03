@@ -11,6 +11,7 @@ import MealplanDataService from '../services/mealplan.serv'
 
 //components
 import SingleRecipe from '../components/singleRecipe'
+import SkeletonRecipe from '../components/skeletons/SkeletonRecipe'
 
 const Mealplan = () => {
     const {auth} = useAuth()
@@ -26,7 +27,8 @@ const Mealplan = () => {
     const [planID, setPlanId] = useState('')
     const [allCooked, setAllCooked] = useState(false)
     //add hook for accessing and using mealplan hook
-    const {value,reset,addOrRemove} = useArrayList('mealplan',[])    
+    const {value,reset,addOrRemove} = useArrayList('mealplan',[])  
+    const [loading,setLoading] = useState(true)  
 
     //error message handling
     const errRef=useRef()
@@ -50,6 +52,7 @@ const Mealplan = () => {
                 }else{
                     setActivePlanExists(false)
                 }
+                setLoading(false)
             })
             .catch((e)=>{
                 console.error(`${e.toString()}`)
@@ -59,10 +62,12 @@ const Mealplan = () => {
                     setErrMsg(`Error: ${e.response}`)
                 }
                 errRef.current.focus()
+                setLoading(false)
             })
         }catch(e){
             console.error(e)
             setErrMsg('Something went wrong while retrieving the recipe tags. Try again later.')
+            setLoading(false)
         }
     }
     
@@ -90,6 +95,7 @@ const Mealplan = () => {
                 // setCurrentPlan(res.data.recipes[0].mealplan)
                 
                 getMealsData(userID)
+                setLoading(false)
             })
             .catch((e)=>{
                 console.error(`${e.toString()}`)
@@ -99,14 +105,17 @@ const Mealplan = () => {
                     setErrMsg(`Error: ${e.response}`)
                 }
                 errRef.current.focus()
+                setLoading(false)
             })
         }catch(e){            
             console.error(e)
             setErrMsg(`Something went wrong while marking a recipe as ${!toValue?'un':''}cooked. Try again later.`)
+            setLoading(false)
         }
     }
 
     useEffect(() => {
+        setLoading(true)
         getMealsData(userID)
         if(location.search.includes('clearLocal')){
             reset()
@@ -182,6 +191,15 @@ const Mealplan = () => {
                     />
                 })}
             </section>
+            {loading&&
+                <div className='skeletonOuterWrapper'>
+                {
+                  [...Array(6).keys()].map((i, key)=>{
+                    return <SkeletonRecipe key={key}/>
+                  })
+                }
+                </div>
+            }
         </>
     )
 }
