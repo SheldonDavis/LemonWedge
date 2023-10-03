@@ -152,11 +152,12 @@ const Mealplan = () => {
     return(
         <>
             {
-                !activePlanExists&&
-                <>
+                !activePlanExists
+                ?<>
                     <p>You don't seem to have an active mealplan built.</p>
                     <p><Link to={`/recipes/`} className='btn'>Build a mealplan?</Link></p>
                 </>
+                :<h1>My Mealplan</h1>
             }
         
             <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live='assertive'>{errMsg}</p>
