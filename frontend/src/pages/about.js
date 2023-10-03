@@ -4,7 +4,7 @@ import KitchenWithGroceries from '../img/KitchenCounter.png'
 const About = () => {
     
     return(
-        <section>
+        <section className='aboutSection'>
             <h1><i>Fresh is Best!</i></h1>
             <p>Lemon Wedge is a ficticious meal planning aid service dedicated to helping people in cooking for themselves, portion control, and eating fresher and better quality foods.</p>
             <p>
