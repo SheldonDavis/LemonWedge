@@ -224,9 +224,10 @@ export default class UserController{
                 console.log(`User logged in. Hello, ${foundUser.username}`)
                 let cookieOptions = { 
                     maxAge:24*60*60*1000,
-                    httpOnly:false, 
+                    httpOnly:true, 
                     secure:true,
-                    sameSite:'Lax', 
+                    sameSite:'lax', 
+                    domain: 'https://lemonwedge.onrender.com/',
 
                 }
                 res.cookie('jwt', refreshToken, cookieOptions)
