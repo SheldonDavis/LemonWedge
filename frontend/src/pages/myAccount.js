@@ -265,11 +265,13 @@ const MyAccount = () => {
                 setTimeout(()=>{
                     setBeenUpdated(false)
                 },5000)
+                setLoading(false)
             })
             .catch((e)=>{
               console.error(e)
               setErrMsg(e.response.data.error || `Error status: ${e.response.status} - ${e.response.statusText}`)
               errRef.current.focus()
+              setLoading(false)
             })
 
           }catch(err){
@@ -283,6 +285,7 @@ const MyAccount = () => {
             }
 
             errRef.current.focus()
+            setLoading(false)
           }
 
     }
@@ -299,11 +302,13 @@ const MyAccount = () => {
                     replace:true,
                     state:{newPW:true},
                 })
+                setLoading(false)
             })
             .catch((e)=>{
               console.error(e)
               setErrMsg(e.response.data.error || `Error status: ${e.response.status} - ${e.response.statusText}`)
               errRef.current.focus()
+              setLoading(false)
             })
         }catch(err){
             if(!err?.response){
@@ -314,10 +319,12 @@ const MyAccount = () => {
             }
 
             errRef.current.focus()
+            setLoading(false)
           }
     }
 
     async function confirmPasswordUpdate(){
+        setLoading(true)
         if(window.confirm('Are you sure you want to update your password?\r\nSelecting \'OK\' will log you out and update your password.')){
 
             let doubleCheckPW = prompt('Plese re-enter your new password')
@@ -326,6 +333,7 @@ const MyAccount = () => {
             }else{
                 setErrMsg('The confirmation password did not match what was initially entered.\r\nPlease try again.')
                 errRef.current.focus()
+                setLoading(false)
             }
 
         }
@@ -356,7 +364,7 @@ const MyAccount = () => {
                         <>
                             <p>
                                 You have pending edits to your profile, save changes?
-                                <button type='button' onClick={(e)=>handleUpdate()}>Update</button>
+                                <button type='button' onClick={(e)=>{setLoading(false);handleUpdate()}}>Update</button>
                             </p>
                         </>
                     }
