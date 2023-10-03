@@ -515,11 +515,15 @@ p.LoadingText {
     align-items: flex-end;
     gap: 0.1em;
 }
-p.LoadingText svg{position:relative;bottom:-2px;}
 
 .fullRecipePage p {
     margin-left: 0.75em;
     margin-right: 0.75em;
+}
+
+p.smallNoMargin {
+    margin: 0 0;
+    font-size: 1em;
 }
 
 @media (min-width: 768px){
@@ -551,25 +555,91 @@ p.LoadingText svg{position:relative;bottom:-2px;}
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        align-items: self-start;
     }    
     .singleRecipe {
         max-width: 45%;
     }    
+    .skeletonOuterWrapper .singleRecipe {
+        width: 45%;
+    }  
     .singleRecipe p {
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-    }
-    .skeletonOuterWrapper .singleRecipe {
-        width: 45%;
-    }   
+        margin: 0.5em 0.33em;
+    } 
     
     .instructions {
         font-size: 1em;
         bottom: 0;
     } 
-    
+}
 
+
+@media (min-width: 1280px){
+  
+    .singleRecipe {
+        max-width: 31%;
+    }    
+    .skeletonOuterWrapper .singleRecipe {
+        width: 31%;
+    }  
+
+    .recipeFiltersRow .input-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:.25em;
+    }
+    .recipeFiltersRow button{margin: 0 0;}
+    
+    .recipeFiltersRow .input-group label {
+        text-wrap: nowrap;
+    }
+    .recipeFiltersRow .input-group input{width:500px;}
+
+    .aboutSection {margin: 0 0.5em;text-align:left;}
+    .aboutSection img{display:block;margin:0 auto;}
+    .container {
+        max-width: 1220px;
+        margin: 0 auto;
+    }
+
+    header {padding: 0.75em 30px;}
+    .menuButton {right: 30px;}
+    nav ul.shown {
+        right: auto;
+    }
+    
+    nav ul {
+        right: auto;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 0;
+    }
+    
+    ul li {
+        font-size: 1em;
+    }
+    
+    nav ul li a {
+        font-size: 1.1em;
+    }
+    
+    nav li .active {
+        background-color: transparent;
+        box-shadow: 0 0 0 transparent;
+        border-bottom: 2px solid #d8bdd9;
+    }
+    
+    .menuButton {
+        display: none;
+    }
+
+    .ingredientInputWrapper {
+        flex-direction: row;
+        gap: 1em;
+    }
 }
