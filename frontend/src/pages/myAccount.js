@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 //components
 import CheckBoxList from '../components/CheckBoxList'
+import Loader from '../components/loader'
 
 //services
 import UserDataService from '../services/user.serv.js'
@@ -22,7 +23,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z
 
 //user account information page
 const MyAccount = () => {
-
+    const [loading,setLoading]=useState(true)
     const errRef=useRef()
     const {auth} = useAuth()
     const navigate = useNavigate()
@@ -93,6 +94,7 @@ const MyAccount = () => {
                 })
                 setRecipeTagsText(tagTexts)
                 setRecipeTagsVals(tagVals)
+                setLoading(false)
             })
             .catch((e)=>{
                 console.error(`${e.toString()}`)
@@ -102,14 +104,17 @@ const MyAccount = () => {
                     setErrMsg(`Error: ${e.response}`)
                 }
                 errRef.current.focus()
+                setLoading(false)
             })
         }catch(e){
             console.error(e)
             setErrMsg('Something went wrong while retrieving the recipe tags. Try again later.')
+            setLoading(false)
         }
     }
 
     useEffect(()=>{
+        setLoading(true)
         getThisUserInfo()
         getAllRecipeTags()
     },[])
@@ -332,173 +337,177 @@ const MyAccount = () => {
 
     return(
         <section>
-            <div className={`floatingNotificationBar ${(editsMade||beenUpdated)&&(!takenEmail&&!takenUsername) ? 'onscreen': ''}`}>
-                {beenUpdated &&
-                    <>
-                        <p>
-                            Your profile has been updated
-                            <span className='valid'><FontAwesomeIcon icon={faCheckCircle}/></span>                                              
-                            <button type='button' style={{opacity:'0'}}>i'm invisible</button>
-                        </p>
-                    </>
-                }
-                {editsMade &&
-                    <>
-                        <p>
-                            You have pending edits to your profile, save changes?
-                            <button type='button' onClick={(e)=>handleUpdate()}>Update</button>
-                        </p>
-                    </>
-                }
-                {
-                    !beenUpdated && !editsMade &&
-                    <>
-                        <p style={{color:'transparent'}}>nothing to see here                        
-                            <button type='button' style={{opacity:'0'}}>i'm invisible</button>
-                        </p>
-                    </>
-                }
-            </div>
-            <h1>My Information</h1>
-            <p className={errMsg ? 'errmsg' : 'offscreen'} ref={errRef} >{errMsg}</p>
-
-                <div className='UserDataRow'>
-                    <label htmlFor='password'>Password</label>
-                    <input
-                        type='password'
-                        id='password'
-                        name='password'
-                        autoComplete='new-password'
-                        defaultValue={newPassword}
-                        onChange={(e)=>{changeInput(e)}}
-                        // onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
-                        // className={!user.email ? 'missingRequired' : undefined}
-                    />
-                    <button type='button' disabled={disablePWUpdate} onClick={(e)=>{confirmPasswordUpdate()}}>Update Password</button>
-                    <p className='smallNoMargin'><i>Your password is a unique update and can only be updated on it's own. Other account updates must be made seperately.</i></p>
-                </div>
-
-            <div className='UserDataRowWrapper'>
-    
-                <div className='UserDataRow'>
-                    <label htmlFor='username'>Username:</label>
-                    <input
-                        type='text'
-                        id='username'
-                        name='username'
-                        autoComplete='new-username'
-                        defaultValue={user.username}
-                        onChange={(e)=>{changeInput(e)}}
-                        onBlur={(e)=>{setCheckingUsername(true);handleInputBlurCheckForDuplicates(e);}}
-                        className={!user.username ? 'missingRequired' : undefined}
-                    />
-                    {!user.username&&
-                        <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing username' cursor='help'/></span>
+            {loading
+            ?<>
+                <Loader/>
+            </>
+            :<>
+                <div className={`floatingNotificationBar ${(editsMade||beenUpdated)&&(!takenEmail&&!takenUsername) ? 'onscreen': ''}`}>
+                    {beenUpdated &&
+                        <>
+                            <p>
+                                Your profile has been updated
+                                <span className='valid'><FontAwesomeIcon icon={faCheckCircle}/></span>                                              
+                                <button type='button' style={{opacity:'0'}}>i'm invisible</button>
+                            </p>
+                        </>
                     }
-                    {checkingUsername &&
-                        <span><FontAwesomeIcon icon={faSpinner} title='checking if username is available' cursor='loading' spin/></span>
+                    {editsMade &&
+                        <>
+                            <p>
+                                You have pending edits to your profile, save changes?
+                                <button type='button' onClick={(e)=>handleUpdate()}>Update</button>
+                            </p>
+                        </>
                     }
-                    {takenUsername &&
-                        <span className='missingIcon'><FontAwesomeIcon icon={faXmark} title='username taken'/></span>
+                    {
+                        !beenUpdated && !editsMade &&
+                        <>
+                            <p style={{color:'transparent'}}>nothing to see here                        
+                                <button type='button' style={{opacity:'0'}}>i'm invisible</button>
+                            </p>
+                        </>
                     }
                 </div>
+                <h1>My Information</h1>
+                <p className={errMsg ? 'errmsg' : 'offscreen'} ref={errRef} >{errMsg}</p>
 
-                <div className='UserDataRow'>
-                    <label htmlFor='email'>Email:</label>
-                    <input
-                        type='email'
-                        id='email'
-                        name='email'
-                        autoComplete='new-email'
-                        defaultValue={user.email}
-                        onChange={(e)=>{changeInput(e)}}
-                        onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
-                        className={!user.email ? 'missingRequired' : undefined}
-                    />
-                    {!user.email&&
-                        <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing emial' cursor='help'/></span>
-                    }
-                    {checkingEmail &&
-                        <span><FontAwesomeIcon icon={faSpinner} title='checking if email is available' cursor='loading' spin/></span>
-                    }
-                    {takenEmail &&
-                        <span className='missingIcon'><FontAwesomeIcon icon={faXmark} title='email taken'/></span>
-                    }
+                    <div className='UserDataRow'>
+                        <label htmlFor='password'>Password</label>
+                        <input
+                            type='password'
+                            id='password'
+                            name='password'
+                            autoComplete='new-password'
+                            defaultValue={newPassword}
+                            onChange={(e)=>{changeInput(e)}}
+                            // onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
+                            // className={!user.email ? 'missingRequired' : undefined}
+                        />
+                        <button type='button' disabled={disablePWUpdate} onClick={(e)=>{confirmPasswordUpdate()}}>Update Password</button>
+                        <p className='smallNoMargin'><i>Your password is a unique update and can only be updated on it's own. Other account updates must be made seperately.</i></p>
+                    </div>
+
+                <div className='UserDataRowWrapper'>
+        
+                    <div className='UserDataRow'>
+                        <label htmlFor='username'>Username:</label>
+                        <input
+                            type='text'
+                            id='username'
+                            name='username'
+                            autoComplete='new-username'
+                            defaultValue={user.username}
+                            onChange={(e)=>{changeInput(e)}}
+                            onBlur={(e)=>{setCheckingUsername(true);handleInputBlurCheckForDuplicates(e);}}
+                            className={!user.username ? 'missingRequired' : undefined}
+                        />
+                        {!user.username&&
+                            <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing username' cursor='help'/></span>
+                        }
+                        {checkingUsername &&
+                            <span><FontAwesomeIcon icon={faSpinner} title='checking if username is available' cursor='loading' spin/></span>
+                        }
+                        {takenUsername &&
+                            <span className='missingIcon'><FontAwesomeIcon icon={faXmark} title='username taken'/></span>
+                        }
+                    </div>
+
+                    <div className='UserDataRow'>
+                        <label htmlFor='email'>Email:</label>
+                        <input
+                            type='email'
+                            id='email'
+                            name='email'
+                            autoComplete='new-email'
+                            defaultValue={user.email}
+                            onChange={(e)=>{changeInput(e)}}
+                            onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
+                            className={!user.email ? 'missingRequired' : undefined}
+                        />
+                        {!user.email&&
+                            <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing emial' cursor='help'/></span>
+                        }
+                        {checkingEmail &&
+                            <span><FontAwesomeIcon icon={faSpinner} title='checking if email is available' cursor='loading' spin/></span>
+                        }
+                        {takenEmail &&
+                            <span className='missingIcon'><FontAwesomeIcon icon={faXmark} title='email taken'/></span>
+                        }
+                    </div>
+
+
+                    <div className='UserDataRow'>
+                        <label htmlFor='fName'>First name:</label>
+                        <input
+                            type='text'
+                            id='fName'
+                            name='firstName'
+                            autoComplete='off'
+                            defaultValue={user.firstName}
+                            onChange={(e)=>{changeInput(e)}}
+                            className={!user.firstName ? 'missingRequired' : undefined}
+                        />
+                        {!user.firstName&&
+                            <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing first name' cursor='help'/></span>
+                        }
+                    </div>
+
+                    <div className='UserDataRow'>
+                        <label htmlFor='lName'>Last name:</label>
+                        <input
+                            type='text'
+                            id='lName'
+                            name='lastName'
+                            autoComplete='off'
+                            defaultValue={user.lastName}
+                            onChange={(e)=>{changeInput(e)}}
+                            className={!user.lastName ? 'missingRequired' : undefined}
+                        />
+                        {!user.lastName&&
+                            <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing last name' cursor='help'/></span>
+                        }
+                    </div>
+
+                    <div className='UserDataRow'>
+                        <CheckBoxList
+                            props={{
+                                listName:'likes',
+                                displayName:'Likes',
+                                listItems:recipeTagsText,
+                                checkedVals:user.likes,
+                                change: changeInput,
+                                listVals: recipeTagsVals,
+                            }}
+                        />
+                    </div>
+
+                    <div className='UserDataRow'>
+                        <CheckBoxList
+                            props={{
+                                listName:'dislikes',
+                                displayName:'Dislikes',
+                                listItems:recipeTagsText,
+                                checkedVals:user.dislikes,
+                                change: changeInput,
+                                listVals: recipeTagsVals,
+                            }}
+                        />
+                    </div>
+
+                    <div className='UserDataRow'>
+                        <CheckBoxList
+                            props={{
+                                listName:'allergies',
+                                displayName:'Allergies',
+                                listItems:['shellfish','fish','gluten','dairy','peanut','treenut','soy','egg','sesame','mustard','sulfite','nightshade',],
+                                checkedVals:user.allergies,
+                                change: changeInput,
+                            }}
+                        />
+                    </div>
                 </div>
-
-
-                <div className='UserDataRow'>
-                    <label htmlFor='fName'>First name:</label>
-                    <input
-                        type='text'
-                        id='fName'
-                        name='firstName'
-                        autoComplete='off'
-                        defaultValue={user.firstName}
-                        onChange={(e)=>{changeInput(e)}}
-                        className={!user.firstName ? 'missingRequired' : undefined}
-                    />
-                    {!user.firstName&&
-                        <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing first name' cursor='help'/></span>
-                    }
-                </div>
-
-                <div className='UserDataRow'>
-                    <label htmlFor='lName'>Last name:</label>
-                    <input
-                        type='text'
-                        id='lName'
-                        name='lastName'
-                        autoComplete='off'
-                        defaultValue={user.lastName}
-                        onChange={(e)=>{changeInput(e)}}
-                        className={!user.lastName ? 'missingRequired' : undefined}
-                    />
-                    {!user.lastName&&
-                        <span className='missingIcon'><FontAwesomeIcon icon={faInfoCircle} title='missing last name' cursor='help'/></span>
-                    }
-                </div>
-
-                <div className='UserDataRow'>
-                    <CheckBoxList
-                        props={{
-                            listName:'likes',
-                            displayName:'Likes',
-                            listItems:recipeTagsText,
-                            checkedVals:user.likes,
-                            change: changeInput,
-                            listVals: recipeTagsVals,
-                        }}
-                    />
-                </div>
-
-                <div className='UserDataRow'>
-                    <CheckBoxList
-                        props={{
-                            listName:'dislikes',
-                            displayName:'Dislikes',
-                            listItems:recipeTagsText,
-                            checkedVals:user.dislikes,
-                            change: changeInput,
-                            listVals: recipeTagsVals,
-                        }}
-                    />
-                </div>
-
-                <div className='UserDataRow'>
-                    <CheckBoxList
-                        props={{
-                            listName:'allergies',
-                            displayName:'Allergies',
-                            listItems:['shellfish','fish','gluten','dairy','peanut','treenut','soy','egg','sesame','mustard','sulfite','nightshade',],
-                            checkedVals:user.allergies,
-                            change: changeInput,
-                        }}
-                    />
-                </div>
-
-
-            </div>
+            </>}
         </section>
 
     )
