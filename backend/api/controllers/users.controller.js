@@ -226,7 +226,8 @@ export default class UserController{
                     maxAge:24*60*60*1000,
                     httpOnly:true, 
                     secure:true,
-                    sameSite:'None', 
+                    sameSite:'lax', 
+                    domain:'https://lemonwedgetesting.onrender.com'
 
                 }
                 res.cookie('jwt', refreshToken, cookieOptions)
