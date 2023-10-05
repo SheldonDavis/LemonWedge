@@ -525,6 +525,11 @@ p.smallNoMargin {
     margin: 0 0;
     font-size: 1em;
 }
+ol.instructionsOrderedList li::marker {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 1.1em;
+}
 
 @media (min-width: 768px){
     body{line-height:1.5em;}
@@ -576,7 +581,19 @@ p.smallNoMargin {
     } 
 }
 
+@media (min-width:1024px){
+    
+    .UserDataRow.fullWidthUserRow {
+        flex-grow: 4;
+    }
+    
+    .UserDataRowWrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
+}
 @media (min-width: 1280px){
   
     .singleRecipe {
@@ -642,4 +659,6 @@ p.smallNoMargin {
         flex-direction: row;
         gap: 1em;
     }
+
+ 
 }
