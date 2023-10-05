@@ -9,7 +9,7 @@ import useAuth from '../hooks/useAuth'
 import ROLES from '../components/roles' 
 
 //icons
-import {faCheckCircle} from '@fortawesome/free-solid-svg-icons'
+import {faCheckCircle,faSpinner} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 
@@ -27,6 +27,13 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
 
     //destructure the recipe
     const {_id, recipename, description, ingredients, image64, imagename, createdBy, ispro} = recipe
+    const [loadingMPCooked,setLoadingMPCooked] = useState(false)
+
+    async function handleMPCookedToggle(ID,valState){
+        await addOrRemove(ID,valState)
+        setLoadingMPCooked(false)
+
+    }
 
     const recipeBODY = (
         <>{
@@ -60,13 +67,17 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
             <div className='BTNS'>
                 <Link to={`/recipes/${recipe._id}`} className='btn'>View Recipe</Link>
                 {forMealplan?(
-                <>
-                {isCooked?(
-                    <button type='button' onClick={(e)=>addOrRemove(recipe._id,false)}>Mark as uncooked</button>
-                ):(
-                    <button type='button' onClick={(e)=>addOrRemove(recipe._id,true)}>Mark as cooked</button>
-                )}
-                </>
+                    loadingMPCooked?<>
+                        <button type='button' ><FontAwesomeIcon icon={faSpinner} spin /></button>
+                    </>
+                    :<>
+                        {isCooked?(
+                            <button type='button' onClick={(e)=>{setLoadingMPCooked(true);handleMPCookedToggle(recipe._id,false)}}>Mark as uncooked</button>
+                        ):(
+                            <button type='button' onClick={(e)=>{setLoadingMPCooked(true);handleMPCookedToggle(recipe._id,true)}}>Mark as cooked</button>
+                        )}
+                    </>
+                
                 ):(
                 <>
                 {
