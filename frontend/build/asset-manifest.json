@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.246a4515.css",
-    "main.js": "/static/js/main.5a43f4c2.js",
+    "main.js": "/static/js/main.8a2118dd.js",
     "static/media/KitchenCounter.png": "/static/media/KitchenCounter.978f2d896487f62c1c31.png",
     "static/media/lemonWedge_wTxt.png": "/static/media/lemonWedge_wTxt.51e9493233af3fc699f6.png",
     "index.html": "/index.html",
     "main.246a4515.css.map": "/static/css/main.246a4515.css.map",
-    "main.5a43f4c2.js.map": "/static/js/main.5a43f4c2.js.map"
+    "main.8a2118dd.js.map": "/static/js/main.8a2118dd.js.map"
   },
   "entrypoints": [
     "static/css/main.246a4515.css",
-    "static/js/main.5a43f4c2.js"
+    "static/js/main.8a2118dd.js"
   ]
 }
