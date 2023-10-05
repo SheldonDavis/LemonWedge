@@ -477,7 +477,7 @@ const MyAccount = () => {
                         }
                     </div>
 
-                    <div className='UserDataRow'>
+                    <div className='UserDataRow fullWidthUserRow'>
                         <CheckBoxList
                             props={{
                                 listName:'likes',
@@ -490,7 +490,7 @@ const MyAccount = () => {
                         />
                     </div>
 
-                    <div className='UserDataRow'>
+                    <div className='UserDataRow fullWidthUserRow'>
                         <CheckBoxList
                             props={{
                                 listName:'dislikes',
@@ -503,7 +503,7 @@ const MyAccount = () => {
                         />
                     </div>
 
-                    <div className='UserDataRow'>
+                    <div className='UserDataRow fullWidthUserRow'>
                         <CheckBoxList
                             props={{
                                 listName:'allergies',
