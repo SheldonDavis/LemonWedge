@@ -1,8 +1,10 @@
 import axios from 'axios'
 
 //url where abckend API lives
-// const BASE_URL = 'http://localhost:3000/api/v1'//testing locally
-const BASE_URL = 'https://lemonwedge.onrender.com/api/v1'//live site
+const location = window.location.origin.toString()
+const BASE_URL = location+'/api/v1'//testing locally
+// const BASE_URL = 'https://lemonwedge.onrender.com/api/v1'//live site
+
 
 
 //base level api access
