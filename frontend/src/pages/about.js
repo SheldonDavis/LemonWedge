@@ -10,7 +10,7 @@ const About = () => {
             <p>
                 <img src={KitchenWithGroceries} alt='stock kitchen counter photo'/>
             </p>
-            <p>Cooking for yourself helps in your day to day life. Providing feelings of productivity, competency, and self sufficiency, creating meals for one's self is an essential skill.</p>
+            <p>Cooking for yourself helps in your day to day life. We strive to create feelings of productivity, competency, and self-sufficiency. Preparing meals for one's self is an essential skill.</p>
            
             
         </section>
