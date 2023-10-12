@@ -31,7 +31,7 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
 
     async function handleMPCookedToggle(ID,valState){
         await addOrRemove(ID,valState)
-        setLoadingMPCooked(false)
+        await setLoadingMPCooked(false)
 
     }
 
