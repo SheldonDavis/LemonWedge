@@ -379,22 +379,28 @@ const MyAccount = () => {
                 </div>
                 <h1>My Information</h1>
                 <p className={errMsg ? 'errmsg' : 'offscreen'} ref={errRef} >{errMsg}</p>
-
-                    <div className='UserDataRow'>
-                        <label htmlFor='password'>Password</label>
-                        <input
-                            type='password'
-                            id='password'
-                            name='password'
-                            autoComplete='new-password'
-                            defaultValue={newPassword}
-                            onChange={(e)=>{changeInput(e)}}
-                            // onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
-                            // className={!user.email ? 'missingRequired' : undefined}
-                        />
-                        <button type='button' disabled={disablePWUpdate} onClick={(e)=>{confirmPasswordUpdate()}}>Update Password</button>
-                        <p className='smallNoMargin'><i>Your password is a unique update and can only be updated on it's own. Other account updates must be made seperately.</i></p>
-                    </div>
+                {
+                    user._id != '6512ec5f31861ce73bfb4e4d' && 
+                    //disable PW update when on tester account
+                    <>
+                        <div className='UserDataRow'>
+                            <label htmlFor='password'>Password</label>
+                            <input
+                                type='password'
+                                id='password'
+                                name='password'
+                                autoComplete='new-password'
+                                defaultValue={newPassword}
+                                onChange={(e)=>{changeInput(e)}}
+                                // onBlur={(e)=>{setCheckingEmail(true);handleInputBlurCheckForDuplicates(e);}}
+                                // className={!user.email ? 'missingRequired' : undefined}
+                            />
+                            <button type='button' disabled={disablePWUpdate} onClick={(e)=>{confirmPasswordUpdate()}}>Update Password</button>
+                            <p className='smallNoMargin'><i>Your password is a unique update and can only be updated on it's own. Other account updates must be made seperately.</i></p>
+                        </div>
+                    </>
+                }
+                    
 
                 <div className='UserDataRowWrapper'>
         
@@ -408,6 +414,7 @@ const MyAccount = () => {
                             defaultValue={user.username}
                             onChange={(e)=>{changeInput(e)}}
                             onBlur={(e)=>{setCheckingUsername(true);handleInputBlurCheckForDuplicates(e);}}
+                            readOnly={user._id === '6512ec5f31861ce73bfb4e4d'}//for tester only so people can use test account
                             className={!user.username ? 'missingRequired' : undefined}
                         />
                         {!user.username&&
