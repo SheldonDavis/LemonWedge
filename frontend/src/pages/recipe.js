@@ -55,38 +55,37 @@ const Recipe = (props) => {
       <section className='fullRecipePage'>
         {recipe?(        
           <>
-            <p>
+          <div className='fullRecipeTop'>
             {
-                recipe.image64
-                ?(
-                  <img src={recipe.image64} alt={`${recipe.recipename} - ${recipe.imagename}`}/>
-                ):(
-                    <></>
-                )
+              recipe.image64&&
+                <p className='fullRecipeImage'><img src={recipe.image64} alt={`${recipe.recipename} - ${recipe.imagename}`}/></p>
             }
-            </p>
-            <h3>{recipe.recipename}</h3>
-            <p>{recipe.description}</p>
-            {/* <p>is pro: {recipe.ispro?.toString()}</p> */}
-            <ul className='ingredientsBulletList'>
-              {
-                recipe.ingredients?.map((ingredient, i)=>(
-                  <li id={`ingredient_${i}`} key={i}>
-                    <strong>{
-                    ingredient.name
-                    }</strong>{
-                    ingredient.measurement
-                      ?<>, {ingredient.measurement}</>
-                      :<></>
-                    } {
-                    ingredient.note 
-                      ?<i>{ingredient.note}</i>
-                      :<></>
-                    }
-                  </li>
-                ))
-              } 
-            </ul>
+            <div className='fullRecipeTopText'>
+              <h3>{recipe.recipename}</h3>
+              <p>{recipe.description}</p>
+              {/* <p>is pro: {recipe.ispro?.toString()}</p> */}
+              <ul className='ingredientsBulletList'>
+                {
+                  recipe.ingredients?.map((ingredient, i)=>(
+                    <li id={`ingredient_${i}`} key={i}>
+                      <strong>{
+                        ingredient.name
+                      }</strong>{
+                        ingredient.measurement
+                        ?<>, {ingredient.measurement}</>
+                        :<></>
+                      } {
+                        ingredient.note 
+                        ?<i>{ingredient.note}</i>
+                        :<></>
+                      }
+                    </li>
+                  ))
+                } 
+              </ul>
+            </div>
+          </div>
+
             <ol className='instructionsOrderedList'>
               {
                 recipe.instructions?.map((step, i)=>(
@@ -101,7 +100,7 @@ const Recipe = (props) => {
             <div className='RecipePageLinks'>
               <a href="#" onClick={goBack}>Back</a>
               {
-                ((userIsEditor || userIsAdmin) && (userID === recipe.createdBy))?(         
+                ((userIsEditor || userIsAdmin) && (userID === recipe.createdBy))&&        
                   <>
                     {/* <button onClick={deleteRecipe(recipe._id)}>Delete</button> */}
                     <Link to={{
@@ -109,10 +108,7 @@ const Recipe = (props) => {
                       
                     }} state={recipe}>Edit</Link>
                   </>
-                ):(
-                  //show no buttons because this isn't a user with permissions
-                  <></>
-                )
+                
               }
             </div>
           </>
