@@ -587,6 +587,7 @@ ol.instructionsOrderedList li::marker {
     }
     .fullRecipePage p{text-align:left;}
     .fullRecipePage h3{text-align:left;}
+    .fullRecipeImage img{max-height:475px;}
 
 }
 
