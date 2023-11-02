@@ -1,7 +1,6 @@
 const allowedOrigins = [
     'http://localhost:5000',
     'http://localhost:3000',
-    'https://lemonwedge.onrender.com',
-    'https://lemonwedgetesting.onrender.com'
+    'https://lemonwedge.onrender.com'
 ]
 export default allowedOrigins
