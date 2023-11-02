@@ -1,11 +1,11 @@
 import React from 'react'
 
 //icons
-import {faXmark, faAdd} from '@fortawesome/free-solid-svg-icons'
+import {faXmark} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 function CheckBoxList(props){
-    // console.log(props)
+    //doconstruct props
     const {
         listName, 
         displayName='List display Name', 
@@ -14,6 +14,7 @@ function CheckBoxList(props){
         change=function change(e){console.log(e)},
         listVals=false,
     } = props.props
+
     return(
         <>
             <label htmlFor={listName} key={`dis_${displayName}`}>{displayName}:</label>

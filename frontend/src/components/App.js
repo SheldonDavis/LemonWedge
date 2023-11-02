@@ -15,10 +15,8 @@ function App() {
       <>
         <Header />
         <main className="App">          
-      
           <div className='container'>
             <SiteRoutes />
-               
           </div>
         </main>
         <Footer/>

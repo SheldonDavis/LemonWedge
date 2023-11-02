@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
-import UserDataService from '../services/user.serv'
-// import useRefreshToken from '../hooks/useRefreshToken.js'
-// import http from '../http-common'
-import { useAxiosPrivate } from '../hooks/useAxiosPrivate'
 import { useNavigate, useLocation} from 'react-router-dom'
+
+//import services
+import UserDataService from '../services/user.serv'
+
+//import hooks
+import { useAxiosPrivate } from '../hooks/useAxiosPrivate'
+
 const Users = () =>{
     const [users, setUsers] = useState()
-    const axiosPrivate = useAxiosPrivate()
     const navigate = useNavigate()
     const location = useLocation()
-
+    const axiosPrivate = useAxiosPrivate()
+    
     useEffect(()=>{
         const controller = new AbortController()
         const getUsers = async () => {

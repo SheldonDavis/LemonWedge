@@ -1,12 +1,12 @@
-//footer
 import { useState } from 'react'
 
 //icons
-import {faSpinner, faEllipsis} from '@fortawesome/free-solid-svg-icons'
+import {faEllipsis} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 const Loader = () => {
     
+    //list of loading screen texts
     const loadingTextOptions = [
         'Boiling water',
         'Preheating oven',
@@ -21,7 +21,7 @@ const Loader = () => {
 
     const [textOption, setTextOption] = useState(Math.floor(Math.random()*loadingTextOptions.length))
 
-    setTimeout(function(){
+    setTimeout(function(){//change text to random options every 2 seconds
         setTextOption(Math.floor(Math.random()*loadingTextOptions.length))
     },2000)
 

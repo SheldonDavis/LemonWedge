@@ -35,25 +35,23 @@ function InstructionInputs({instructionKey, _id='', step='', addNewStep, updateS
             setImpState('added')
         }
     },[initialStepID])
-// console.log(`stepID = ${stepID}`)
 
-const setUpForSaveAdd = () => {//compile new ingredient data for parent acessability
-    addNewStep(stepID, stepText)
-    setImpState('new')
-    setStepText('')
-}
-const setUpForSaveUpdate = () => {//compile updated data for parent accessbility
-    updateStep(stepID, stepText)
-    setImpState('added')
-  
-}
-const handleStepTextChange = (e) => {
+    const setUpForSaveAdd = () => {//compile new ingredient data for parent acessability
+        addNewStep(stepID, stepText)
+        setImpState('new')
+        setStepText('')
+    }
 
-    setStepText(e.target.value)
-    setImpState('updating')
-    setErrMsg('')
+    const setUpForSaveUpdate = () => {//compile updated data for parent accessbility
+        updateStep(stepID, stepText)
+        setImpState('added')
+    }
 
-}
+    const handleStepTextChange = (e) => {//onchange handler of textarea
+        setStepText(e.target.value)
+        setImpState('updating')
+        setErrMsg('')
+    }
 
     return(
         <>

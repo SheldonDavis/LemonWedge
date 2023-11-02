@@ -31,13 +31,10 @@ const SiteRoutes = (props) => {
     return (
         <Routes>
             <Route element={<PersistLogin/>}>
-                {/* testing */}
-
-
-                {/* public routes */}
-                {/* show all recipes */}
+            {/* public routes */}
+                {/* show all recipes, will tell non logged in user to log in */}
                 <Route exact path={'/'} element={<RecipeList/>}/>
-                {/* show all recipes */}
+                {/* show about page */}
                 <Route exact path={'/about'} element={<About/>}/>
                 {/* unauthorized access */}
                 <Route exact path={'/unauthorized'} element= {<Unauthorized/>}/>
@@ -46,16 +43,15 @@ const SiteRoutes = (props) => {
                 {/* log into account */}
                 <Route path='/login' Component={
                     (props)=>(
-                        <Login {...props}  />//login={login} user={user}
+                        <Login {...props}  />
                     )
                 }/>
                 {/* catchall */}
                 <Route path='*' element={<Missing/>}/>
 
 
-
-                {/* private routes */}
-                {/* user avilable routes */}
+            {/* private routes */}
+                {/* ALL user avilable routes */}
                 <Route element={<RequireAuth allowedRoles={[ROLES.User]}/>}> 
                     {/* show all recipes */}
                     <Route exact path={'/recipes'} element= {<RecipeList/>}/>

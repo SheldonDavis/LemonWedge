@@ -3,9 +3,10 @@ import jwt_decode from 'jwt-decode'
 import useAuth from "../hooks/useAuth";
 
 const RequireAuth = ({allowedRoles}) => {
-    const {auth} = useAuth()
     const location = useLocation()
 
+    //use auth and decode for token and roles
+    const {auth} = useAuth()
     const decoded = auth?.accessToken
         ? jwt_decode(auth.accessToken)
         : undefined

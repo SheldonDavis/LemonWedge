@@ -1,18 +1,22 @@
 //header
 import React, { useState } from 'react'
 import { NavLink, Link} from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
 import jwt_decode from 'jwt-decode'
+
+//import roles
 import ROLES from './roles'
 
-//logo import
+//import hooks
+import useAuth from '../hooks/useAuth'
+
+//import logo
 import logo from '../img/lemonWedge_wTxt.png'
 
-const Header = (props) => {
-    
-    const {auth} = useAuth()
+const Header = (props) => {    
     const [isMenuOpen, setIsMenuOpen] = useState(false)   
+
     //decode access token and grab roles
+    const {auth} = useAuth()
     const decoded = auth?.accessToken
         ? jwt_decode(auth.accessToken)
         : undefined
@@ -26,6 +30,7 @@ const Header = (props) => {
     function toggleMenu(){
         setIsMenuOpen((current) => !current);
     }
+
     function forceCloseDrawer(){        
         setIsMenuOpen(false);
     }
@@ -62,18 +67,17 @@ const Header = (props) => {
                         </>
                     )}
                     { (userIsAdmin || userIsEditor) && (
-                        <>
-                            <li>
-                                <NavLink to={'/recipes/manage'} onClick={(e)=>forceCloseDrawer()} end>
-                                    Create a Recipe
-                                </NavLink>
-                            </li>
-                            { userIsAdmin&& (
-                                <li>
-                                    <NavLink to={'/admin'} onClick={(e)=>forceCloseDrawer()}>Admin</NavLink>
-                                </li>                                
-                            )}
-                        </>
+                        <li>
+                            <NavLink to={'/recipes/manage'} onClick={(e)=>forceCloseDrawer()} end>
+                                Create a Recipe
+                            </NavLink>
+                        </li>
+                    )}
+                    
+                    { userIsAdmin&& (
+                        <li>
+                            <NavLink to={'/admin'} onClick={(e)=>forceCloseDrawer()}>Admin</NavLink>
+                        </li>                                
                     )}
                     
                     <li>

@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-//hooks
+//import hooks
 import useRefreshToken from '../hooks/useRefreshToken'
 import useAuth from '../hooks/useAuth.js'
 import useLocalStorage from '../hooks/useLocalStorage'
 
-//components
+//import components
 import Loader from './loader'
 
 

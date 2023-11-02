@@ -327,7 +327,7 @@ const MyAccount = () => {
         setLoading(true)
         if(window.confirm('Are you sure you want to update your password?\r\nSelecting \'OK\' will log you out and update your password.')){
 
-            let doubleCheckPW = prompt('Plese re-enter your new password')
+            let doubleCheckPW = prompt('Please re-enter your new password.')
             if (doubleCheckPW===newPassword && newPassword !==''){
                 await handleUpdatePassword()
             }else{

@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 
 const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealplan=false, isCooked=false }, ref, ) => { 
+    //docode auth for user roles and token info
     const {auth} = useAuth()
     const decoded = auth?.accessToken
     ? jwt_decode(auth.accessToken)
@@ -29,12 +30,12 @@ const SingleRecipe = React.forwardRef(({ recipe, addOrRemove, mealplan, forMealp
     const {_id, recipename, description, ingredients, image64, imagename, createdBy, ispro} = recipe
     const [loadingMPCooked,setLoadingMPCooked] = useState(false)
 
-    async function handleMPCookedToggle(ID,valState){
+    async function handleMPCookedToggle(ID,valState){//toggle is cooked value for this recipe on mealplan list
         await addOrRemove(ID,valState)
         await setLoadingMPCooked(false)
-
     }
-
+    
+    //create body content of recipe page
     const recipeBODY = (
         <>{
                 image64
