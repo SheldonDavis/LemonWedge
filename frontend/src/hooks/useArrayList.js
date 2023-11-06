@@ -12,7 +12,7 @@ const useArrayList = (key, initValue) => {
                 let index = prev.indexOf(value);
                 prev.splice(index, 1);
 
-                //maybe remove later?
+                //maybe a remove option later?
                 return [...prev]
             }else{
                 //add item
