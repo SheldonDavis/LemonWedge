@@ -608,10 +608,10 @@ ol.instructionsOrderedList li::marker {
 @media (min-width: 1280px){
   
     .singleRecipe {
-        max-width: 31%;
+        max-width: 23%;
     }    
     .skeletonOuterWrapper .singleRecipe {
-        width: 31%;
+        width: 23%;
     }  
 
     .recipeFiltersRow .input-group {
