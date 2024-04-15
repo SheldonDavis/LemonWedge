@@ -13,6 +13,7 @@ Lemon Wedge was built as a portfolio project clone of [meallime](https://www.mea
 
 ### Live Demo
 >The LemonWedge webservice is stored on a free tier of a hosting platform which spins services up and down as needed. The initial load time for this site may take a few minutes, please be patient.
+
 [View a live demo here](https://lemonwedge.onrender.com/)
 
 >To view the site with a testing account, please use:
