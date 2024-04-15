@@ -1,4 +1,4 @@
-# LemondWedge Meal planning web app tool
+# LemondWedge Meal Planner web app
 LemonWedge was built as a portfolio project clone of [meallime](https://www.mealime.com/).
 
 ### Features
