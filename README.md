@@ -1,5 +1,5 @@
 # LemondWedge Meal planning web app tool
-LemonWedge was built as a portfolio project clone of [meallime](https://www.mealime.com/)
+LemonWedge was built as a portfolio project clone of [meallime](https://www.mealime.com/).
 
 ### Features
  - RESTFUL API backend using MONGODB
