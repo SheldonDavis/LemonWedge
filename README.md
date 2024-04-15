@@ -6,7 +6,7 @@ Cooking for yourself helps in your day to day life. Lemond Wedge strives to crea
 Lemon Wedge was built as a portfolio project clone of [meallime](https://www.mealime.com/).
 
 ### Features
- - RESTFUL API backend using MONGODB
+ - RESTFUL API backend using MongoDB
  - Full user authentication system
  - Full permission system to allow specified users to be able to create recipes for other users to access
  - Data management system for all users to create meal plans and mark recipes as completed from currently active meal plan.
