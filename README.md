@@ -12,7 +12,7 @@ Lemon Wedge was built as a portfolio project clone of [meallime](https://www.mea
  - Data management system for all users to create meal plans and mark recipes as completed from currently active meal plan.
 
 ### Live Demo
->The LemonWedge webservice is stored on a free tier of a hosting platform which spins services up and down as needed. The initial load time for this site may take a few minutes, please be patient.
+The LemonWedge webservice is stored on a free tier of a hosting platform which spins services up and down as needed. The initial load time for this site may take a few minutes, please be patient.
 
 [View a live demo here](https://lemonwedge.onrender.com/)
 
